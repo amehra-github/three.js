@@ -64,13 +64,10 @@
 			//animate(); // uncomment  later --------------------------------------
 			document.body.addEventListener('click',init_boss, true);
 			function init_boss(){
-				alert("no-shite");
 				if(gate==1){
-					alert("shite");
 					init();
 					animate();
 					document.body.removeEventListener("click", init_boss);
-					document.body.addEventListener('click',alert("Sup"), true); 
 					gate=0;
 				}
 			}
