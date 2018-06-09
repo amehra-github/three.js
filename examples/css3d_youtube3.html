@@ -66,6 +66,8 @@
 			
 			function click_handler(ele){
 				var concept = ele.innerHTML;
+				init();
+				animate();
 				
 	    	}
 
@@ -91,8 +93,7 @@
 			document.body.addEventListener('click',init_boss, true);
 			function init_boss(){
 				if(gate==1){
-					init();
-					animate();
+					
 					document.body.removeEventListener("click", init_boss);
 					gate=0;
 					//makeImgRequest();
