@@ -343,7 +343,8 @@
 			$('#filePic').click();
 			console.log(document.getElementById("fotoImg"));
 			var i =0;
-			while(document.getElementById("fotoImg").src == ""){i++;}
+			while(document.getElementById("fotoImg").src == ""){i++;};
+			console.log(document.getElementById("fotoImg").src);
 			document.getElementById("fotoImg").parentNode.removeChild(document.getElementById("fotoImg"));
 			$("#myModal").modal();
 			//init();
