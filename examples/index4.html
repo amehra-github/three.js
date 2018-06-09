@@ -111,6 +111,7 @@ function join() {
 
         localStream.init(function() {
           console.log("getUserMedia successfully");
+          localStream.play('agora_local');
 
           client.publish(localStream, function (err) {
             console.log("Publish local stream error: " + err);
