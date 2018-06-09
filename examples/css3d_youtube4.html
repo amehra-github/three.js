@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>three.js css3d - youtube</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			html, body {
+				height: 100%;
+				overflow: hidden;
+			}
+			#blocker {
+				position: absolute;
+				/* background-color: rgba(255, 0, 0, 0.5); */
+				top: 0px;
+				left: 0px;
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		
+	</head>
+	
+	<body >
+		<script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
+		<script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.5.0/aframe/build/aframe-ar.js"> </script>
+		<script src="../build/three.js"></script>
+		<script src="js/controls/TrackballControls.js"></script>
+		<script src="js/renderers/CSS3DRenderer.js"></script>
+
+		<div id="container"></div>
+		<div id="blocker"></div>
+
+		<script>
+
+			var camera, scene, renderer;
+			var controls;
+			var link1,link2,link3,link4;
+			var gate=1;
+
+			var Element = function ( id, x, y, z, ry ) {
+
+				var div = document.createElement( 'div' );
+				div.style.width = '480px';
+				div.style.height = '360px';
+				div.style.backgroundColor = '#000';
+
+				var iframe = document.createElement( 'iframe' );
+				iframe.style.width = '480px';
+				iframe.style.height = '360px';
+				iframe.style.border = '0px';
+				iframe.src = [ 'https://www.youtube.com/embed/', id, '?rel=0' ].join( '' );
+				div.appendChild( iframe );
+
+				var object = new THREE.CSS3DObject( div );
+				object.position.set( x, y, z );
+				object.rotation.y = ry;
+
+				return object;
+
+			};
+			
+			function click_handler(ele){
+				var concept = ele.innerHTML;
+				init();
+				animate();
+				
+	    	}
+
+			function parser(strResp){
+				var jsonResp = JSON.parse(strResp);
+				var tot = Object.keys(myObject).length
+				var cats = document.getElementsByClassName("category");
+				var ctr = 0;
+				for (var key in jsonResp) {
+				  if (obj.hasOwnProperty(key)){
+						cats[ctr].innerHTML=jsonResp[key].concept;
+					ctr=ctr+1;
+					if(ctr>=tot){break;}
+					if(ctr>=10 ){break;}
+				  }
+			   }
+			}
+			
+			
+
+			//init();
+			//animate(); // uncomment  later --------------------------------------
+			document.body.addEventListener('click',init_boss, true);
+			function init_boss(){
+				if(gate==1){
+					
+					document.body.removeEventListener("click", init_boss);
+					gate=0;
+					//makeImgRequest();
+					$("#myModal").modal();
+				}
+			}
+			
+			function createCORSRequest(method, url) {
+				var xhr = new XMLHttpRequest();
+				
+				if ("withCredentials" in xhr) {
+					xhr.open(method, url, false);
+				} 
+				else if (typeof XDomainRequest != "undefined") {
+					
+					xhr = new XDomainRequest();
+					xhr.open(method, url);
+				} 
+				else {
+					// CORS not supported.
+					xhr = null;
+				}
+				return xhr;
+			}
+			
+			function makeYoutubeRequest(){
+				url = 'www.idk.com?topic=magnetism';
+				var xhr = createCORSRequest('GET', url);
+				xhr.onload = function() {
+					var text = xhr.responseText;
+					init2(text);
+				};
+
+				xhr.onerror = function() {
+					alert('Woops, there was an error on our side.');
+				};
+
+				xhr.send();
+			}
+			
+			function makeImgRequest(){
+				url = 'www.idk.com?img=magnetism';
+				var xhr = createCORSRequest('GET', url);
+				xhr.onload = function() {
+					var text = xhr.responseText;
+					parser(text);
+				};
+
+				xhr.onerror = function() {
+					alert('Woops, there was an error on our side.');
+				};
+
+				xhr.send(); 
+			}
+			
+			function init2(strResp){
+				var jsonResp = JSON.parse(strResp);
+				for (var key in jsonResp) {
+					if (obj.hasOwnProperty(key)) {
+						link1=jsonResp[key].id1;
+						link2=jsonResp[key].id2;
+						link3=jsonResp[key].id3;
+						link4=jsonResp[key].id4;
+					}
+				}
+			}
+
+			function init() {
+
+				var container = document.getElementById( 'container' );
+
+				camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 5000 );
+				camera.position.set( 500, 350, 750 );
+
+				scene = new THREE.Scene();
+
+				renderer = new THREE.CSS3DRenderer();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				container.appendChild( renderer.domElement );
+
+				var group = new THREE.Group();
+				group.add( new Element( 'SJOz3qjfQXU', 0, 0, 240, 0 ) );
+				group.add( new Element( 'Y2-xZ-1HE-Q', 240, 0, 0, Math.PI / 2 ) );
+				group.add( new Element( 'IrydklNpcFI', 0, 0, - 240, Math.PI ) );
+				group.add( new Element( '9ubytEsCaS0', - 240, 0, 0, - Math.PI / 2 ) );
+				scene.add( group );
+
+				controls = new THREE.TrackballControls( camera );
+				controls.rotateSpeed = 4;
+
+				window.addEventListener( 'resize', onWindowResize, false );
+
+				// Block iframe events when dragging camera
+
+				var blocker = document.getElementById( 'blocker' );
+				blocker.style.display = 'none';
+
+				document.addEventListener( 'mousedown', function () { blocker.style.display = ''; } );
+				document.addEventListener( 'mouseup', function () { blocker.style.display = 'none'; } );
+
+			}
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+			}
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+				controls.update();
+				renderer.render( scene, camera );
+
+			}
+
+		</script>
+	    <a-scene embedded arjs>
+		<a-marker preset="hiro">
+		    <a-box position='0 0.5 0' material='color: green;'></a-box>
+		</a-marker>
+		<a-entity camera></a-entity>
+	    </a-scene>
+		
+		<div class="container">
+  <!-- Trigger the modal with a button 
+  <button id="butt" onclick='$("#myModal").modal()'></button>-->
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h3 class="modal-title" align="center">Key Concepts</h3>
+        </div>
+        <div class="modal-body">
+          <p><a class="category" onclick="click_handler(this)">benzene</a></p><hr>
+          <p><a class="category" onclick="click_handler(this)">fcr</a></p><hr>
+          <p><a class="category" onclick="click_handler(this)">cumene</a></p><hr>
+          <p><a class="category" onclick="click_handler(this)">alkene</a></p><hr>
+          <p><a class="category" onclick="click_handler(this)">rdx</a></p><hr>
+          <p><a class="category" onclick="click_handler(this)">tnt</a></p><hr>
+          <p><a class="category" onclick="click_handler(this)">alcohol</a></p><hr>
+          <p><a class="category" onclick="click_handler(this)">ketone</a></p><hr>
+          <p><a class="category" onclick="click_handler(this)">aldehyde</a></p><hr>
+          <p><a class="category" onclick="click_handler(this)">idk</a></p>
+        </div>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+		
+		
+	</body>
+</html>
