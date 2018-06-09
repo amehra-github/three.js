@@ -30,7 +30,7 @@
 </head>
 
 <body><input id="filePic" type="file" name="image" accept="image/*" style="display:none" capture>
-<center><img id="fotoImg" style="visibility: hidden; src:'';"></center>
+<center><img id="fotoImg" style="visibility: hidden;"></center>
 <script>
   oFReader = new FileReader();
   //rip
@@ -342,9 +342,6 @@
 		if(gate == 1) {
 			$('#filePic').click();
 			console.log(document.getElementById("fotoImg"));
-			while(document.getElementById("fotoImg").src == ""){
-				console.log('1');
-			};
 			console.log(document.getElementById("fotoImg").src);
 			document.getElementById("fotoImg").parentNode.removeChild(document.getElementById("fotoImg"));
 			$("#myModal").modal();
