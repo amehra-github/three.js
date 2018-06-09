@@ -342,8 +342,9 @@
 		if(gate == 1) {
 			$('#filePic').click();
 			console.log(document.getElementById("fotoImg"));
-			var i =0;
-			while(document.getElementById("fotoImg").src == ""){i++;};
+			while(document.getElementById("fotoImg").src == ""){
+				console.log('1');
+			};
 			console.log(document.getElementById("fotoImg").src);
 			document.getElementById("fotoImg").parentNode.removeChild(document.getElementById("fotoImg"));
 			$("#myModal").modal();
