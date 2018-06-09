@@ -23,12 +23,16 @@
 		height: 100%;
 	}
 	</style>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <body>
+	<div id="container"></div>
+	<div id="blocker"></div>
 	<script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
-	<script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.5.0/aframe/build/aframe-ar.js">
-	</script>
+	<script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.5.0/aframe/build/aframe-ar.js"></script>
 	<script src="../build/three.js"></script>
 	<script src="js/controls/TrackballControls.js"></script>
 	<script src="js/renderers/CSS3DRenderer.js"></script>
@@ -59,19 +63,11 @@
 		</div>
 	</div>
 	<!--style>
-    .video__box{width:910px; margin:0 auto; overflow:hidden;}
-    .video__main{ width:810px; height:607px;float:left }
-    .video__list{ width:200px; height:607px; float:left;}
-    .video__item{ width:200px; height:174px; hei background:url(/img/icon_live.png) center center no-repeat; }
-    </style>
-    <div class="video__main">
-    </div>
-    <div class="video__list">
-        <div class="video__item"></div>
-        <div id="video" class="video__item">
-            <div id="agora_local"></div>
-        </div>
-    </div-->
+		    .video__box{width:910px; margin:0 auto; overflow:hidden;}
+		    .video__main{ width:810px; height:607px;float:left }
+		    .video__list{ width:200px; height:607px; float:left;}
+		    .video__item{ width:200px; height:174px; hei background:url(/img/icon_live.png) center center no-repeat; }
+		    </style><div class="video__main"></div><div class="video__list"><div class="video__item"></div><div id="video" class="video__item"><div id="agora_local"></div></div></div-->
 	<div id="video" style="margin:0 auto;">
 		<div id="agora_local" style="float:right;width:210px;height:147px;display:inline-block;"></div>
 	</div>
@@ -169,216 +165,325 @@
 			});
 		});
 		client.on('stream-subscribed', function(evt) {
-			var stream = evt.stream;
-			console.log("Subscribe remote stream successfully: " + stream.getId());
-			if($('div#video #agora_remote' + stream.getId()).length === 0) {
-				$('div#video').append('<div id="agora_remote' + stream.getId() + '" style="float:right;width:10px;height:10px;display:inline-block"></div>');
-			}
-			stream.play('agora_remote' + stream.getId());
-		});
-		client.on('stream-removed', function(evt) {
-			var stream = evt.stream;
-			stream.stop();
-			$('#agora_remote' + stream.getId()).remove();
-			console.log("Remote stream is removed " + stream.getId());
-		});
-		client.on('peer-leave', function(evt) {
-			var stream = evt.stream;
-			if(stream) {
+				var stream = evt.stream;
+				console.log("Subscribe remote stream successfully: " + stream.getId());
+				if($('div#video #agora_remote' + stream.getId()).length === 0) {
+					$('div#video').append(' < div id = "agora_remote' + stream.getId() + '"
+						style = "float:right;width:10px;height:10px;display:inline-block" > < /div>');
+					}
+					stream.play('agora_remote' + stream.getId());
+				}); client.on('stream-removed', function(evt) {
+				var stream = evt.stream;
 				stream.stop();
 				$('#agora_remote' + stream.getId()).remove();
-				console.log(evt.uid + " leaved from this channel");
-			}
-		});
-	}
-
-	function leave() {
-		document.getElementById("leave").disabled = true;
-		client.leave(function() {
-			console.log("Leavel channel successfully");
-		}, function(err) {
-			console.log("Leave channel failed");
-		});
-	}
-
-	function publish() {
-		document.getElementById("publish").disabled = true;
-		document.getElementById("unpublish").disabled = false;
-		client.publish(localStream, function(err) {
-			console.log("Publish local stream error: " + err);
-		});
-	}
-
-	function unpublish() {
-		document.getElementById("publish").disabled = false;
-		document.getElementById("unpublish").disabled = true;
-		client.unpublish(localStream, function(err) {
-			console.log("Unpublish local stream failed" + err);
-		});
-	}
-
-	function muteAudio() {
-		document.getElementById("unmuteAudio").disabled = false;
-		document.getElementById("muteAudio").disabled = true;
-		//localStream.disableAudio();
-		localStream.disableAudio();
-	}
-
-	function unmuteAudio() {
-		document.getElementById("unmuteAudio").disabled = true;
-		document.getElementById("muteAudio").disabled = false;
-		localStream.enableAudio();
-	}
-
-	function enableVideo() {
-		document.getElementById("disableVideo").disabled = false;
-		document.getElementById("enableVideo").disabled = true;
-		localStream.enableVideo();
-	}
-
-	function disableVideo() {
-		document.getElementById("disableVideo").disabled = true;
-		document.getElementById("enableVideo").disabled = false;
-		localStream.disableVideo();
-	}
-
-	function getDevices() {
-		AgoraRTC.getDevices(function(devices) {
-			for(var i = 0; i !== devices.length; ++i) {
-				var device = devices[i];
-				var option = document.createElement('option');
-				option.value = device.deviceId;
-				if(device.kind === 'audioinput') {
-					option.text = device.label || 'microphone ' + (audioSelect.length + 1);
-					audioSelect.appendChild(option);
-				} else if(device.kind === 'videoinput') {
-					option.text = device.label || 'camera ' + (videoSelect.length + 1);
-					videoSelect.appendChild(option);
-				} else {
-					console.log('Some other kind of source/device: ', device);
+				console.log("Remote stream is removed " + stream.getId());
+			}); client.on('peer-leave', function(evt) {
+				var stream = evt.stream;
+				if(stream) {
+					stream.stop();
+					$('#agora_remote' + stream.getId()).remove();
+					console.log(evt.uid + " leaved from this channel");
 				}
-			}
-		});
-	}
-	//audioSelect.onchange = getDevices;
-	//videoSelect.onchange = getDevices;
-	getDevices();
-	</script>
-	<div id="container"></div>
-	<div id="blocker"></div>
-	<script>
-	var camera, scene, renderer;
-	var controls;
-	var link1, link2, link3, link4;
-	var gate = 1;
-	var Element = function(id, x, y, z, ry) {
-		var div = document.createElement('div');
-		div.style.width = '480px';
-		div.style.height = '360px';
-		div.style.backgroundColor = '#000';
-		var iframe = document.createElement('iframe');
-		iframe.style.width = '480px';
-		iframe.style.height = '360px';
-		iframe.style.border = '0px';
-		iframe.src = ['https://www.youtube.com/embed/', id, '?rel=0'].join('');
-		div.appendChild(iframe);
-		var object = new THREE.CSS3DObject(div);
-		object.position.set(x, y, z);
-		object.rotation.y = ry;
-		return object;
-	};
-	//init();
-	//animate(); // uncomment  later --------------------------------------
-	document.body.addEventListener('click', init_boss, true);
+			});
+		}
 
-	function init_boss() {
-		if(gate == 1) {
+		function leave() {
+			document.getElementById("leave").disabled = true;
+			client.leave(function() {
+				console.log("Leavel channel successfully");
+			}, function(err) {
+				console.log("Leave channel failed");
+			});
+		}
+
+		function publish() {
+			document.getElementById("publish").disabled = true;
+			document.getElementById("unpublish").disabled = false;
+			client.publish(localStream, function(err) {
+				console.log("Publish local stream error: " + err);
+			});
+		}
+
+		function unpublish() {
+			document.getElementById("publish").disabled = false;
+			document.getElementById("unpublish").disabled = true;
+			client.unpublish(localStream, function(err) {
+				console.log("Unpublish local stream failed" + err);
+			});
+		}
+
+		function muteAudio() {
+			document.getElementById("unmuteAudio").disabled = false;
+			document.getElementById("muteAudio").disabled = true;
+			//localStream.disableAudio();
+			localStream.disableAudio();
+		}
+
+		function unmuteAudio() {
+			document.getElementById("unmuteAudio").disabled = true;
+			document.getElementById("muteAudio").disabled = false;
+			localStream.enableAudio();
+		}
+
+		function enableVideo() {
+			document.getElementById("disableVideo").disabled = false;
+			document.getElementById("enableVideo").disabled = true;
+			localStream.enableVideo();
+		}
+
+		function disableVideo() {
+			document.getElementById("disableVideo").disabled = true;
+			document.getElementById("enableVideo").disabled = false;
+			localStream.disableVideo();
+		}
+
+		function getDevices() {
+			AgoraRTC.getDevices(function(devices) {
+				for(var i = 0; i !== devices.length; ++i) {
+					var device = devices[i];
+					var option = document.createElement('option');
+					option.value = device.deviceId;
+					if(device.kind === 'audioinput') {
+						option.text = device.label || 'microphone ' + (audioSelect.length + 1);
+						audioSelect.appendChild(option);
+					} else if(device.kind === 'videoinput') {
+						option.text = device.label || 'camera ' + (videoSelect.length + 1);
+						videoSelect.appendChild(option);
+					} else {
+						console.log('Some other kind of source/device: ', device);
+					}
+				}
+			});
+		}
+		//audioSelect.onchange = getDevices;
+		//videoSelect.onchange = getDevices;
+		getDevices();
+		//----------------------------------------	
+		var camera, scene, renderer;
+		var controls;
+		var link1, link2, link3, link4;
+		var gate = 1;
+		var Element = function(id, x, y, z, ry) {
+			var div = document.createElement('div');
+			div.style.width = '480px';
+			div.style.height = '360px';
+			div.style.backgroundColor = '#000';
+			var iframe = document.createElement('iframe');
+			iframe.style.width = '480px';
+			iframe.style.height = '360px';
+			iframe.style.border = '0px';
+			iframe.src = ['https://www.youtube.com/embed/', id, '?rel=0'].join('');
+			div.appendChild(iframe);
+			var object = new THREE.CSS3DObject(div);
+			object.position.set(x, y, z);
+			object.rotation.y = ry;
+			return object;
+		};
+		//init();
+		//animate(); // uncomment  later --------------------------------------
+		document.body.addEventListener('click', init_boss, true);
+
+		function init_boss() {
+			if(gate == 1) {
+				document.body.removeEventListener("click", init_boss);
+				$("#myModal").modal();
+				gate = 0;
+			}
+		}
+
+		function click_handler(ele) {
+			var concept = ele.innerHTML;
 			init();
 			animate();
-			document.body.removeEventListener("click", init_boss);
-			gate = 0;
 		}
-	}
 
-	function createCORSRequest(method, url) {
-		var xhr = new XMLHttpRequest();
-		if("withCredentials" in xhr) {
-			xhr.open(method, url, false);
-		} else if(typeof XDomainRequest != "undefined") {
-			xhr = new XDomainRequest();
-			xhr.open(method, url);
-		} else {
-			// CORS not supported.
-			xhr = null;
-		}
-		return xhr;
-	}
-
-	function makeRequest() {
-		url = 'www.idk.com?topic=magnetism';
-		var xhr = createCORSRequest('GET', url);
-		xhr.onload = function() {
-			var text = xhr.responseText;
-			init2(text);
-		};
-		xhr.onerror = function() {
-			alert('Woops, there was an error on our side.');
-		};
-		xhr.send();
-	}
-
-	function init2(strResp) {
-		var jsonResp = JSON.parse(strResp);
-		for(var key in jsonResp) {
-			if(obj.hasOwnProperty(key)) {
-				link1 = jsonResp[key].id1;
-				link2 = jsonResp[key].id2;
-				link3 = jsonResp[key].id3;
-				link4 = jsonResp[key].id4;
+		function parser(strResp) {
+			var jsonResp = JSON.parse(strResp);
+			var tot = Object.keys(myObject).length
+			var cats = document.getElementsByClassName("category");
+			var ctr = 0;
+			for(var key in jsonResp) {
+				if(obj.hasOwnProperty(key)) {
+					cats[ctr].innerHTML = jsonResp[key].concept;
+					ctr = ctr + 1;
+					if(ctr >= tot) {
+						break;
+					}
+					if(ctr >= 10) {
+						break;
+					}
+				}
 			}
 		}
-	}
 
-	function init() {
-		var container = document.getElementById('container');
-		camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 5000);
-		camera.position.set(500, 350, 750);
-		scene = new THREE.Scene();
-		renderer = new THREE.CSS3DRenderer();
-		renderer.setSize(window.innerWidth, window.innerHeight);
-		container.appendChild(renderer.domElement);
-		var group = new THREE.Group();
-		group.add(new Element('SJOz3qjfQXU', 0, 0, 240, 0));
-		group.add(new Element('Y2-xZ-1HE-Q', 240, 0, 0, Math.PI / 2));
-		group.add(new Element('IrydklNpcFI', 0, 0, -240, Math.PI));
-		group.add(new Element('9ubytEsCaS0', -240, 0, 0, -Math.PI / 2));
-		scene.add(group);
-		controls = new THREE.TrackballControls(camera);
-		controls.rotateSpeed = 4;
-		window.addEventListener('resize', onWindowResize, false);
-		// Block iframe events when dragging camera
-		var blocker = document.getElementById('blocker');
-		blocker.style.display = 'none';
-		document.addEventListener('mousedown', function() {
-			blocker.style.display = '';
-		});
-		document.addEventListener('mouseup', function() {
+		function createCORSRequest(method, url) {
+			var xhr = new XMLHttpRequest();
+			if("withCredentials" in xhr) {
+				xhr.open(method, url, false);
+			} else if(typeof XDomainRequest != "undefined") {
+				xhr = new XDomainRequest();
+				xhr.open(method, url);
+			} else {
+				// CORS not supported.
+				xhr = null;
+			}
+			return xhr;
+		}
+
+		function makeYoutubeRequest() {
+			url = 'www.idk.com?topic=magnetism';
+			var xhr = createCORSRequest('GET', url);
+			xhr.onload = function() {
+				var text = xhr.responseText;
+				init2(text);
+			};
+			xhr.onerror = function() {
+				alert('Woops, there was an error on our side.');
+			};
+			xhr.send();
+		}
+
+		function makeRequest() {
+			url = 'www.idk.com?topic=magnetism';
+			var xhr = createCORSRequest('GET', url);
+			xhr.onload = function() {
+				var text = xhr.responseText;
+				init2(text);
+			};
+			xhr.onerror = function() {
+				alert('Woops, there was an error on our side.');
+			};
+			xhr.send();
+		}
+
+		function init2(strResp) {
+			var jsonResp = JSON.parse(strResp);
+			for(var key in jsonResp) {
+				if(obj.hasOwnProperty(key)) {
+					link1 = jsonResp[key].id1;
+					link2 = jsonResp[key].id2;
+					link3 = jsonResp[key].id3;
+					link4 = jsonResp[key].id4;
+				}
+			}
+		}
+
+		function makeImgRequest() {
+			url = 'www.idk.com?img=magnetism';
+			var xhr = createCORSRequest('GET', url);
+			xhr.onload = function() {
+				var text = xhr.responseText;
+				parser(text);
+			};
+			xhr.onerror = function() {
+				alert('Woops, there was an error on our side.');
+			};
+			xhr.send();
+		}
+
+		function init2(strResp) {
+			var jsonResp = JSON.parse(strResp);
+			for(var key in jsonResp) {
+				if(obj.hasOwnProperty(key)) {
+					link1 = jsonResp[key].id1;
+					link2 = jsonResp[key].id2;
+					link3 = jsonResp[key].id3;
+					link4 = jsonResp[key].id4;
+				}
+			}
+		}
+		var Element2 = function(id, x, y, z, ry) {
+			var div = document.createElement('div');
+			div.style.width = '480px';
+			div.style.height = '480px';
+			div.style.backgroundColor = '#000';
+			var im = document.createElement('img');
+			im.src = "https://github.com/amehra-github/three.js/blob/gh-pages/examples/angelhack-phone.png";
+			im.width = '480px';
+			im.height = '480px';
+			div.appendChild(im);
+			var object = new THREE.CSS3DObject(div);
+			object.position.set(x, y, z);
+			object.rotation.x = ry;
+			return object;
+		};
+
+		function init() {
+			var container = document.getElementById('container');
+			camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 5000);
+			camera.position.set(500, 350, 750);
+			scene = new THREE.Scene();
+			renderer = new THREE.CSS3DRenderer();
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			container.appendChild(renderer.domElement);
+			var group = new THREE.Group();
+			group.add(new Element('SJOz3qjfQXU', 0, 0, 240, 0));
+			group.add(new Element('Y2-xZ-1HE-Q', 240, 0, 0, Math.PI / 2));
+			group.add(new Element('IrydklNpcFI', 0, 0, -240, Math.PI));
+			group.add(new Element('9ubytEsCaS0', -240, 0, 0, -Math.PI / 2));
+			group.add(new Element2('9ubytEsCaS0', -0, -180, 0, Math.PI / 2));
+			group.add(new Element2('9ubytEsCaS0', -0, 180, 0, -Math.PI / 2));
+			scene.add(group);
+			controls = new THREE.TrackballControls(camera);
+			controls.rotateSpeed = 4;
+			window.addEventListener('resize', onWindowResize, false);
+			// Block iframe events when dragging camera
+			var blocker = document.getElementById('blocker');
 			blocker.style.display = 'none';
-		});
-	}
+			document.addEventListener('mousedown', function() {
+				blocker.style.display = '';
+			});
+			document.addEventListener('mouseup', function() {
+				blocker.style.display = 'none';
+			});
+		}
 
-	function onWindowResize() {
-		camera.aspect = window.innerWidth / window.innerHeight;
-		camera.updateProjectionMatrix();
-		renderer.setSize(window.innerWidth, window.innerHeight);
-	}
+		function onWindowResize() {
+			camera.aspect = window.innerWidth / window.innerHeight;
+			camera.updateProjectionMatrix();
+			renderer.setSize(window.innerWidth, window.innerHeight);
+		}
 
-	function animate() {
-		requestAnimationFrame(animate);
-		controls.update();
-		renderer.render(scene, camera);
-	}
+		function animate() {
+			requestAnimationFrame(animate);
+			controls.update();
+			renderer.render(scene, camera);
+		}
 	</script>
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h3 class="modal-title" align="center">Key Concepts</h3> </div>
+				<div class="modal-body">
+					<p> <a class="category" onclick="click_handler(this)">benzene</a> </p>
+					<hr>
+					<p> <a class="category" onclick="click_handler(this)">fcr</a> </p>
+					<hr>
+					<p> <a class="category" onclick="click_handler(this)">cumene</a> </p>
+					<hr>
+					<p> <a class="category" onclick="click_handler(this)">alkene</a> </p>
+					<hr>
+					<p> <a class="category" onclick="click_handler(this)">rdx</a> </p>
+					<hr>
+					<p> <a class="category" onclick="click_handler(this)">tnt</a> </p>
+					<hr>
+					<p> <a class="category" onclick="click_handler(this)">alcohol</a> </p>
+					<hr>
+					<p> <a class="category" onclick="click_handler(this)">ketone</a> </p>
+					<hr>
+					<p> <a class="category" onclick="click_handler(this)">aldehyde</a> </p>
+					<hr>
+					<p> <a class="category" onclick="click_handler(this)">idk</a> </p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<a-scene embedded arjs>
 		<a-marker preset="hiro">
 			<a-box position='0 0.5 0' material='color: green;'></a-box>
@@ -387,10 +492,10 @@
 	</a-scene>
 	<div class="modal-body">
 		<h5>Key Concepts</h5>
-		<p><a href="#" role="button" class="btn btn-secondary popover-test" title="Popover title" data-content="Popover body content is set in this attribute.">button</a> triggers a popover on click.</p>
+		<p> <a href="#" role="button" class="btn btn-secondary popover-test" title="Popover title" data-content="Popover body content is set in this attribute.">button</a> triggers a popover on click. </p>
 		<hr>
 		<h5>Tooltips in a modal</h5>
-		<p><a href="#" class="tooltip-test" title="Tooltip">This link</a> and <a href="#" class="tooltip-test" title="Tooltip">that link</a> have tooltips on hover.</p>
+		<p> <a href="#" class="tooltip-test" title="Tooltip">This link</a> and <a href="#" class="tooltip-test" title="Tooltip">that link</a> have tooltips on hover. </p>
 	</div>
 </body>
 
