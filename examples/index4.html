@@ -52,10 +52,6 @@ Host: <input id="video" type="checkbox" checked></input>
         </div>
     </div-->
 
-<div id="video" style="margin:0 auto;">
-    <div id="agora_local" style="float:right;width:210px;height:147px;display:inline-block;"></div>
-</div>
-
 <script language="javascript">
 
 if(!AgoraRTC.checkSystemRequirements()) {
@@ -115,7 +111,6 @@ function join() {
 
         localStream.init(function() {
           console.log("getUserMedia successfully");
-          localStream.play('agora_local');
 
           client.publish(localStream, function (err) {
             console.log("Publish local stream error: " + err);
