@@ -299,6 +299,7 @@
 		div.style.backgroundColor = '#000';
 		var im = document.createElement('button');
 		im.id = "new-btn-lol"
+		im.onclick = function(){join();};
 		div.appendChild(im);
 
 		var object = new THREE.CSS3DObject( div );
@@ -306,9 +307,7 @@
 		object.rotation.x = ry;
 		return object;
 	};
-	
-	$("#new-btn-lol").click(function(){join();});
-		
+			
 	function click_handler(ele){
 		var concept = ele.innerHTML;
 		$("#myModal").modal('hide');
