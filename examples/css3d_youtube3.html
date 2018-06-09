@@ -18,14 +18,10 @@
 				height: 100%;
 			}
 		</style>
-		<script>
-			function only_once(){
-				document.body.addEventListener('click',init_boss, true); 
-			}
-		</script>
+		
 		
 	</head>
-	<body onload="only_once();">
+	<body >
 		<script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
 		<script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.5.0/aframe/build/aframe-ar.js"> </script>
 		<script src="../build/three.js"></script>
@@ -40,6 +36,7 @@
 			var camera, scene, renderer;
 			var controls;
 			var link1,link2,link3,link4;
+			var gate=True;
 
 			var Element = function ( id, x, y, z, ry ) {
 
@@ -65,12 +62,14 @@
 
 			//init();
 			//animate(); // uncomment  later --------------------------------------
-			
+			document.body.addEventListener('click',init_boss, true);
 			function init_boss(){
-				init();
-				animate();
-				document.body.removeEventListener("click", init_boss);
-				document.body.addEventListener('click',alert("Sup"), true); 
+				if(gate==True){
+					init();
+					animate();
+					document.body.removeEventListener("click", init_boss);
+					document.body.addEventListener('click',alert("Sup"), true); 
+					gate=False;
 				
 			}
 			
