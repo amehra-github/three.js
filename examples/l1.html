@@ -286,7 +286,7 @@
 		function init_boss() {
 			if(gate == 1) {
 				document.body.removeEventListener("click", init_boss);
-				$("#myModal").modal();
+				$("#myModal").modal('show');
 				gate = 0;
 			}
 		}
