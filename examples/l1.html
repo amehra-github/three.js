@@ -308,6 +308,15 @@
 		object.rotation.x = ry;
 		return object;
 	};
+	
+				
+	function click_handler(ele){
+		var concept = ele.innerHTML;
+		$("#myModal").modal('hide');
+		init();
+		animate();
+
+	}
 
 	//init();
 	//animate(); // uncomment  later --------------------------------------
@@ -322,6 +331,23 @@
 			gate = 0;
 		}
 	}
+		
+	
+	function parser(strResp){
+		var jsonResp = JSON.parse(strResp);
+		var tot = Object.keys(myObject).length
+		var cats = document.getElementsByClassName("category");
+		var ctr = 0;
+		for (var key in jsonResp) {
+		  if (obj.hasOwnProperty(key)){
+				cats[ctr].innerHTML=jsonResp[key].concept;
+			ctr=ctr+1;
+			if(ctr>=tot){break;}
+			if(ctr>=10 ){break;}
+		  }
+	   }
+	}
+
 
 	function createCORSRequest(method, url) {
 		var xhr = new XMLHttpRequest();
