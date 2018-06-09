@@ -297,10 +297,8 @@
 		div.style.width = '480px';
 		div.style.height = '480px';
 		div.style.backgroundColor = '#000';
-		var im = document.createElement( 'img' );
-		im.src="https://github.com/amehra-github/three.js/blob/gh-pages/examples/angelhack-phone.png";
-		im.width='480px';
-		im.height='480px';
+		var im = document.createElement('button');
+		im.onclick='join()';
 		div.appendChild(im);
 
 		var object = new THREE.CSS3DObject( div );
@@ -314,6 +312,7 @@
 		var concept = ele.innerHTML;
 		$("#myModal").modal('hide');
 		init();
+		
 		animate();
 
 	}
