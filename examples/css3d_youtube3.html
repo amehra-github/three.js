@@ -18,8 +18,14 @@
 				height: 100%;
 			}
 		</style>
+		<script>
+			function only_once(){
+				document.body.addEventListener('click',init_boss, true); 
+			}
+		</script>
+		
 	</head>
-	<body>
+	<body onload="only_once();">
 		<script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
 		<script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.5.0/aframe/build/aframe-ar.js"> </script>
 		<script src="../build/three.js"></script>
@@ -59,7 +65,6 @@
 
 			//init();
 			//animate(); // uncomment  later --------------------------------------
-			document.body.addEventListener('click',init_boss, true); 
 			
 			function init_boss(){
 				init();
