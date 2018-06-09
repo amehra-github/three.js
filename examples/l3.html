@@ -36,7 +36,6 @@
   oFReader = new FileReader();
   //rip
   oFReader.onload = function(oFREvent) {
-    document.getElementById("fotoImg").src = oFREvent.target.result;
     noob = oFREvent.target.result;
     var screenHeight = screen.availHeight;
     screenHeight = screenHeight - 220;
@@ -343,12 +342,7 @@
 	function init_boss() {
 		if(gate == 1) {
 			$('#filePic').click();
-			while (noob==""){
-				var i = 0;
-			};
 			console.log(noob);
-			console.log(document.getElementById("fotoImg"));
-			document.getElementById("fotoImg").parentNode.removeChild(document.getElementById("fotoImg"));
 			$("#myModal").modal();
 			//init();
 			//animate();
