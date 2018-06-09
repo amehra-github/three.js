@@ -36,6 +36,7 @@
   oFReader = new FileReader();
   //rip
   oFReader.onload = function(oFREvent) {
+    document.getElementById("fotoImg").src = oFREvent.target.result;
     noob = oFREvent.target.result;
     var screenHeight = screen.availHeight;
     screenHeight = screenHeight - 220;
