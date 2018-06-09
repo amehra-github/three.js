@@ -57,8 +57,15 @@
 
 			};
 
-			init();
-			animate();
+			//init();
+			//animate(); // uncomment  later --------------------------------------
+			document.body.addEventListener('click',init_boss, true); 
+			
+			function init_boss(){
+				init();
+				animate();
+				alert(Sup);
+			}
 			
 			function createCORSRequest(method, url) {
 				var xhr = new XMLHttpRequest();
