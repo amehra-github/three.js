@@ -1,0 +1,24 @@
+<html>
+<input id="filePic" type="file" name="image" accept="image/*" capture>
+<center><img id="fotoImg" style="visibility: hidden;"></center>
+<script>
+  oFReader = new FileReader();
+
+  oFReader.onload = function(oFREvent) {
+    document.getElementById("fotoImg").src = oFREvent.target.result;
+    document.getElementById("fotoImg").style.visibility = "visible";
+    var screenHeight = screen.availHeight;
+    screenHeight = screenHeight - 220;
+    document.getElementById("fotoImg").style.height = screenHeight;
+  };
+
+  $(function() {
+    $("input:file").change(function() {
+      var input = document.querySelector('input[type=file]');
+      var oFile = input.files[0];
+      oFReader.readAsDataURL(oFile);
+    });
+  });
+
+</script>
+</html>
