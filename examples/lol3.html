@@ -293,7 +293,8 @@
 			
 			function click_handler(ele){
 				var concept = ele.innerHTML;
-				document.getElementById('myModal').style.display="none";
+				//document.getElementById('myModal').style.display="none";
+				$("#myModal").modal("hide");
 				init();
 				animate();
 				join(); //MOVE TO BUTTOTTOTN PREEESSSS
