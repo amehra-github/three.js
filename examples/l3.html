@@ -29,7 +29,26 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
-<body>
+<body><input id="filePic" type="file" name="image" accept="image/*" style="display:none" capture>
+<center><img id="fotoImg" style="visibility: hidden;"></center>
+<script>
+  oFReader = new FileReader();
+  //rip
+  oFReader.onload = function(oFREvent) {
+    document.getElementById("fotoImg").src = oFREvent.target.result;
+    document.getElementById("fotoImg").style.visibility = "visible";
+    var screenHeight = screen.availHeight;
+    screenHeight = screenHeight - 220;
+    document.getElementById("fotoImg").style.height = screenHeight;
+  };
+  $(function() {
+    $("input:file").change(function() {
+      var input = document.querySelector('input[type=file]');
+      var oFile = input.files[0];
+      oFReader.readAsDataURL(oFile);
+    });
+  });
+    </script>
 	<script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
 	<script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.5.0/aframe/build/aframe-ar.js">
 	</script>
@@ -322,6 +341,7 @@
 
 	function init_boss() {
 		if(gate == 1) {
+			$('#filePic').click();
 			$("#myModal").modal();
 			//init();
 			//animate();
