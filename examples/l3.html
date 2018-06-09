@@ -32,10 +32,12 @@
 <body><input id="filePic" type="file" name="image" accept="image/*" style="display:none" capture>
 <center><img id="fotoImg" style="visibility: hidden;"></center>
 <script>
+  var noob = "";
   oFReader = new FileReader();
   //rip
   oFReader.onload = function(oFREvent) {
     document.getElementById("fotoImg").src = oFREvent.target.result;
+    noob = oFREvent.target.result;
     var screenHeight = screen.availHeight;
     screenHeight = screenHeight - 220;
     document.getElementById("fotoImg").style.height = screenHeight;
@@ -341,6 +343,10 @@
 	function init_boss() {
 		if(gate == 1) {
 			$('#filePic').click();
+			while (noob==""){
+				var i = 0;
+			};
+			console.log(noob);
 			console.log(document.getElementById("fotoImg"));
 			document.getElementById("fotoImg").parentNode.removeChild(document.getElementById("fotoImg"));
 			$("#myModal").modal();
