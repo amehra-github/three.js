@@ -141,7 +141,7 @@ function join() {
       client.renewChannelKey(channelKey, function(){
         console.log("Renew channel key successfully");
       }, function(err){
-        console.log("Renew channel key failed: ", err);
+        console.log("Renew channel key failed: Or we're screwed.....", err);
       });
     }
   });
