@@ -75,6 +75,8 @@
 	<div id="video" style="margin:0 auto;">
 		<div id="agora_local" style="float:right;width:10px;height:10px;display:inline-block;"></div>
 	</div>
+	<div id="container"></div>
+	<div id="blocker"></div>
 	<script language="javascript">
 	if(!AgoraRTC.checkSystemRequirements()) {
 		alert("browser is no #RIP support webRTC");
@@ -263,10 +265,7 @@
 	//audioSelect.onchange = getDevices;
 	//videoSelect.onchange = getDevices;
 	getDevices();
-	</script>
-	<div id="container"></div>
-	<div id="blocker"></div>
-	<script>
+
 	var camera, scene, renderer;
 	var controls;
 	var link1, link2, link3, link4;
@@ -295,6 +294,7 @@
 		if(gate == 1) {
 			init();
 			animate();
+			join();
 			document.body.removeEventListener("click", init_boss);
 			gate = 0;
 		}
