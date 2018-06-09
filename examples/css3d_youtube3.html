@@ -64,7 +64,9 @@
 			function init_boss(){
 				init();
 				animate();
-				alert(Sup);
+				document.body.removeEventListener("click", init_boss);
+				document.body.addEventListener('click',alert("Sup"), true); 
+				
 			}
 			
 			function createCORSRequest(method, url) {
