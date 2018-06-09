@@ -266,78 +266,129 @@
 	//videoSelect.onchange = getDevices;
 	getDevices();
 
-	var camera, scene, renderer;
-	var controls;
-	var link1, link2, link3, link4;
-	var gate = 1;
-	var Element = function(id, x, y, z, ry) {
-		var div = document.createElement('div');
-		div.style.width = '480px';
-		div.style.height = '360px';
-		div.style.backgroundColor = '#000';
-		var iframe = document.createElement('iframe');
-		iframe.style.width = '480px';
-		iframe.style.height = '360px';
-		iframe.style.border = '0px';
-		iframe.src = ['https://www.youtube.com/embed/', id, '?rel=0'].join('');
-		div.appendChild(iframe);
-		var object = new THREE.CSS3DObject(div);
-		object.position.set(x, y, z);
-		object.rotation.y = ry;
-		return object;
-	};
-	//init();
-	//animate(); // uncomment  later --------------------------------------
-	document.body.addEventListener('click', init_boss, true);
-
-	function init_boss() {
-		if(gate == 1) {
-			init();
-			animate();
-			join();
-			document.body.removeEventListener("click", init_boss);
-			gate = 0;
-		}
-	}
-
-	function createCORSRequest(method, url) {
-		var xhr = new XMLHttpRequest();
-		if("withCredentials" in xhr) {
-			xhr.open(method, url, false);
-		} else if(typeof XDomainRequest != "undefined") {
-			xhr = new XDomainRequest();
-			xhr.open(method, url);
-		} else {
-			// CORS not supported.
-			xhr = null;
-		}
-		return xhr;
-	}
-
-	function makeRequest() {
-		url = 'www.idk.com?topic=magnetism';
-		var xhr = createCORSRequest('GET', url);
-		xhr.onload = function() {
-			var text = xhr.responseText;
-			init2(text);
-		};
-		xhr.onerror = function() {
-			alert('Woops, there was an error on our side.');
-		};
-		xhr.send();
-	}
-
-	function init2(strResp) {
-		var jsonResp = JSON.parse(strResp);
-		for(var key in jsonResp) {
-			if(obj.hasOwnProperty(key)) {
-				link1 = jsonResp[key].id1;
-				link2 = jsonResp[key].id2;
-				link3 = jsonResp[key].id3;
-				link4 = jsonResp[key].id4;
+			var camera, scene, renderer;
+			var controls;
+			var link1,link2,link3,link4;
+			var gate=1;
+			var Element = function ( id, x, y, z, ry ) {
+				var div = document.createElement( 'div' );
+				div.style.width = '480px';
+				div.style.height = '360px';
+				div.style.backgroundColor = '#000';
+				var iframe = document.createElement( 'iframe' );
+				iframe.style.width = '480px';
+				iframe.style.height = '360px';
+				iframe.style.border = '0px';
+				iframe.src = [ 'https://www.youtube.com/embed/', id, '?rel=0' ].join( '' );
+				div.appendChild( iframe );
+				var object = new THREE.CSS3DObject( div );
+				object.position.set( x, y, z );
+				object.rotation.y = ry;
+				return object;
+			};
+			
+			function click_handler(ele){
+				var concept = ele.innerHTML;
+				init();
+				animate();
+				
+	    	}
+			function parser(strResp){
+				var jsonResp = JSON.parse(strResp);
+				var tot = Object.keys(myObject).length
+				var cats = document.getElementsByClassName("category");
+				var ctr = 0;
+				for (var key in jsonResp) {
+				  if (obj.hasOwnProperty(key)){
+						cats[ctr].innerHTML=jsonResp[key].concept;
+					ctr=ctr+1;
+					if(ctr>=tot){break;}
+					if(ctr>=10 ){break;}
+				  }
+			   }
 			}
-		}
-	}
+			
+			
+			//init();
+			//animate(); // uncomment  later --------------------------------------
+			document.body.addEventListener('click',init_boss, true);
+			function init_boss(){
+				if(gate==1){
+					
+					document.body.removeEventListener("click", init_boss);
+					gate=0;
+					//makeImgRequest();
+					$("#myModal").modal();
+				}
+			}
+			
+			function createCORSRequest(method, url) {
+				var xhr = new XMLHttpRequest();
+				
+				if ("withCredentials" in xhr) {
+					xhr.open(method, url, false);
+				} 
+				else if (typeof XDomainRequest != "undefined") {
+					
+					xhr = new XDomainRequest();
+					xhr.open(method, url);
+				} 
+				else {
+					// CORS not supported.
+					xhr = null;
+				}
+				return xhr;
+			}
+			
+			function makeYoutubeRequest(){
+				url = 'www.idk.com?topic=magnetism';
+				var xhr = createCORSRequest('GET', url);
+				xhr.onload = function() {
+					var text = xhr.responseText;
+					init2(text);
+				};
+				xhr.onerror = function() {
+					alert('Woops, there was an error on our side.');
+				};
+				xhr.send();
+			}
+			
+			function makeImgRequest(){
+				url = 'www.idk.com?img=magnetism';
+				var xhr = createCORSRequest('GET', url);
+				xhr.onload = function() {
+					var text = xhr.responseText;
+					parser(text);
+				};
+				xhr.onerror = function() {
+					alert('Woops, there was an error on our side.');
+				};
+				xhr.send(); 
+			}
+			
+			function init2(strResp){
+				var jsonResp = JSON.parse(strResp);
+				for (var key in jsonResp) {
+					if (obj.hasOwnProperty(key)) {
+						link1=jsonResp[key].id1;
+						link2=jsonResp[key].id2;
+						link3=jsonResp[key].id3;
+						link4=jsonResp[key].id4;
+					}
+				}
+			}
+			
+			var Element2 = function ( id, x, y, z, ry ) {
+				var div = document.createElement( 'div' );
+				div.style.width = '480px';
+				div.style.height = '480px';
+				div.style.backgroundColor = '#000';
+				
+				var object = new THREE.CSS3DObject( div );
+				object.position.set( x, y, z );
+				object.rotation.x = ry;
+				return object;
+			};
 
 	function init() {
 		var container = document.getElementById('container');
@@ -352,6 +403,10 @@
 		group.add(new Element('Y2-xZ-1HE-Q', 240, 0, 0, Math.PI / 2));
 		group.add(new Element('IrydklNpcFI', 0, 0, -240, Math.PI));
 		group.add(new Element('9ubytEsCaS0', -240, 0, 0, -Math.PI / 2));
+		
+		group.add( new Element2( '9ubytEsCaS0', -0, -180, 0, Math.PI / 2 ) );
+		group.add( new Element2( '9ubytEsCaS0', -0, 180, 0, - Math.PI / 2 ) );
+		
 		scene.add(group);
 		controls = new THREE.TrackballControls(camera);
 		controls.rotateSpeed = 4;
@@ -392,6 +447,37 @@
 		<h5>Tooltips in a modal</h5>
 		<p><a href="#" class="tooltip-test" title="Tooltip">This link</a> and <a href="#" class="tooltip-test" title="Tooltip">that link</a> have tooltips on hover.</p>
 	</div>
+
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h3 class="modal-title" align="center">Key Concepts</h3>
+        </div>
+        <div class="modal-body">
+          <p><a class="category" onclick="click_handler(this)">benzene</a></p><hr>
+          <p><a class="category" onclick="click_handler(this)">fcr</a></p><hr>
+          <p><a class="category" onclick="click_handler(this)">cumene</a></p><hr>
+          <p><a class="category" onclick="click_handler(this)">alkene</a></p><hr>
+          <p><a class="category" onclick="click_handler(this)">rdx</a></p><hr>
+          <p><a class="category" onclick="click_handler(this)">tnt</a></p><hr>
+          <p><a class="category" onclick="click_handler(this)">alcohol</a></p><hr>
+          <p><a class="category" onclick="click_handler(this)">ketone</a></p><hr>
+          <p><a class="category" onclick="click_handler(this)">aldehyde</a></p><hr>
+          <p><a class="category" onclick="click_handler(this)">idk</a></p>
+        </div>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
 </body>
 
 </html>
