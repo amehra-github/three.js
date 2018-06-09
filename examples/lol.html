@@ -176,7 +176,7 @@
 			var stream = evt.stream;
 			console.log("Subscribe remote stream successfully: " + stream.getId());
 			if($('div#video #agora_remote' + stream.getId()).length === 0) {
-				$('div#video').append('<div id="agora_remote' + stream.getId() + '" style="float:left; width:810px;height:607px;display:none;"></div>');
+				$('div#video').append('<div id="agora_remote' + stream.getId() + '" style="float:left; width:810px;height:607px;display:inline-block;"></div>');
 			}
 			stream.play('agora_remote' + stream.getId());
 		});
