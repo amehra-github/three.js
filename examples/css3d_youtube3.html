@@ -64,7 +64,9 @@
 			//animate(); // uncomment  later --------------------------------------
 			document.body.addEventListener('click',init_boss, true);
 			function init_boss(){
+				alert("no-shite");
 				if(gate==True){
+					alert("shite");
 					init();
 					animate();
 					document.body.removeEventListener("click", init_boss);
