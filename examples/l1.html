@@ -347,7 +347,8 @@
 		  }
 	   }
 	}
-
+	
+	
 
 	function createCORSRequest(method, url) {
 		var xhr = new XMLHttpRequest();
@@ -363,7 +364,7 @@
 		return xhr;
 	}
 
-	function makeRequest() {
+	function makeYoutubeRequest(){
 		url = 'www.idk.com?topic=magnetism';
 		var xhr = createCORSRequest('GET', url);
 		xhr.onload = function() {
@@ -376,6 +377,20 @@
 		xhr.send();
 	}
 
+
+	function makeImgRequest(){
+		url = 'www.idk.com?img=magnetism';
+		var xhr = createCORSRequest('GET', url);
+		xhr.onload = function() {
+			var text = xhr.responseText;
+			parser(text);
+		};
+		xhr.onerror = function() {
+			alert('Woops, there was an error on our side.');
+		};
+		xhr.send(); 
+	}
+		
 	function init2(strResp) {
 		var jsonResp = JSON.parse(strResp);
 		for(var key in jsonResp) {
