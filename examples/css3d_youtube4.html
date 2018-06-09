@@ -168,8 +168,10 @@
 				div.style.height = '480px';
 				div.style.backgroundColor = '#000';
 
+				var im = document.createElement( 'img' );
+				im.src="https://github.com/amehra-github/three.js/blob/gh-pages/examples/angelhack-phone.png";
+				div.appendChild(im);
 				
-
 				var object = new THREE.CSS3DObject( div );
 				object.position.set( x, y, z );
 				object.rotation.x = ry;
