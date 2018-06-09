@@ -36,7 +36,7 @@
 			var camera, scene, renderer;
 			var controls;
 			var link1,link2,link3,link4;
-			var gate=True;
+			var gate=1;
 
 			var Element = function ( id, x, y, z, ry ) {
 
@@ -65,13 +65,13 @@
 			document.body.addEventListener('click',init_boss, true);
 			function init_boss(){
 				alert("no-shite");
-				if(gate==True){
+				if(gate==1){
 					alert("shite");
 					init();
 					animate();
 					document.body.removeEventListener("click", init_boss);
 					document.body.addEventListener('click',alert("Sup"), true); 
-					gate=False;
+					gate=0;
 				}
 			}
 			
