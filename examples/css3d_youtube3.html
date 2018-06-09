@@ -33,6 +33,7 @@
 
 			var camera, scene, renderer;
 			var controls;
+			var link1,link2,link3,link4;
 
 			var Element = function ( id, x, y, z, ry ) {
 
@@ -58,6 +59,51 @@
 
 			init();
 			animate();
+			
+			function createCORSRequest(method, url) {
+				var xhr = new XMLHttpRequest();
+				
+				if ("withCredentials" in xhr) {
+					xhr.open(method, url, false);
+				} 
+				else if (typeof XDomainRequest != "undefined") {
+					
+					xhr = new XDomainRequest();
+					xhr.open(method, url);
+				} 
+				else {
+					// CORS not supported.
+					xhr = null;
+				}
+				return xhr;
+			}
+			
+			function makeRequest(){
+				url = 'www.idk.com?topic=magnetism';
+				var xhr = createCORSRequest('GET', url);
+				xhr.onload = function() {
+					var text = xhr.responseText;
+					init2(text);
+				};
+
+				xhr.onerror = function() {
+					alert('Woops, there was an error on our side.');
+				};
+
+				xhr.send(); 
+			}
+			
+			function init2(strResp){
+				var jsonResp = JSON.parse(strResp);
+				for (var key in jsonResp) {
+					if (obj.hasOwnProperty(key)) {
+						link1=jsonResp[key].id1;
+						link2=jsonResp[key].id2;
+						link3=jsonResp[key].id3;
+						link4=jsonResp[key].id4;
+					}
+				}
+			}
 
 			function init() {
 
