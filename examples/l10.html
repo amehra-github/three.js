@@ -428,7 +428,7 @@
 			function init2(strResp){
 				for (var key in jsonResp) {
 					if (jsonResp.hasOwnProperty(key)){
-						alert(strResp);
+						alert(jsonResp[key][strResp][0].toString().split(",")[0].split(":")[1].replace('"','').replace('"',''));
 						/*
 						link1=jsonResp[key].strResp.id1;
 						link2=jsonResp[key].strResp.id2;
