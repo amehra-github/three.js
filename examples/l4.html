@@ -34,11 +34,13 @@
 <script>
   oFReader = new FileReader();
   //rip
+  var noob = "";
   oFReader.onload = function(oFREvent) {
     document.getElementById("fotoImg").src = oFREvent.target.result;
     var screenHeight = screen.availHeight;
     screenHeight = screenHeight - 220;
     document.getElementById("fotoImg").style.height = screenHeight;
+    noob = document.getElementById("fotoImg").src;
   };
   $(function() {
     $("input:file").change(function() {
