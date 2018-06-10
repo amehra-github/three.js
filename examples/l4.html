@@ -41,6 +41,7 @@
     screenHeight = screenHeight - 220;
     document.getElementById("fotoImg").style.height = screenHeight;
     noob = document.getElementById("fotoImg").src;
+    document.getElementById("fotoImg").src = "";
   };
   $(function() {
     $("input:file").change(function() {
