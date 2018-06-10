@@ -386,9 +386,10 @@
 		return xhr;
 	}
 
-	function makeYoutubeRequest(){
-		url = 'http://52.200.214.107:5000/image?concept='+noob;
-		var xhr = createCORSRequest('GET', url);
+	function makeYoutubeRequest(noob){
+		url = 'http://52.200.214.107:5000/image?concept='+noob.toString().substring(23,noob.length);
+		var xhr = new XMLHttpRequest();
+		xhr.open('GET', url, false);
 		xhr.onload = function() {
 			var text = xhr.responseText;
 			init2(text);
