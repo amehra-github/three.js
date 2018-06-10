@@ -41,6 +41,7 @@
 			var controls;
 			var link1,link2,link3,link4;
 			var gate=1;
+			var jsonResp;
 
 			var Element = function ( id, x, y, z, ry ) {
 
@@ -66,22 +67,33 @@
 			
 			function click_handler(ele){
 				var concept = ele.innerHTML;
+				init2(concept);
 				init();
 				animate();
 				
 	    	}
 
 			function parser(strResp){
-				var jsonResp = JSON.parse(strResp);
+				jsonResp = JSON.parse(strResp);
 				var tot = Object.keys(myObject).length
 				var cats = document.getElementsByClassName("category");
 				var ctr = 0;
+				outer:
 				for (var key in jsonResp) {
 				  if (obj.hasOwnProperty(key)){
-						cats[ctr].innerHTML=jsonResp[key].concept;
+					var jsonjr = jsonResp[key]
+					for(var k in jsonjr){
+						if(obj.hasOwnProperty(k)){
+							cats[ctr].innerHTML=jsonjr[k];
+							ctr=ctr+1;
+							if(ctr>=tot){break outer;}
+							if(ctr>=10 ){break outer;}
+						}
+					}
+					/*cats[ctr].innerHTML=jsonResp[key].concept;
 					ctr=ctr+1;
 					if(ctr>=tot){break;}
-					if(ctr>=10 ){break;}
+					if(ctr>=10 ){break;}*/
 				  }
 			   }
 			}
@@ -150,6 +162,15 @@
 			}
 			
 			function init2(strResp){
+				for (var key in jsonResp) {
+					if (obj.hasOwnProperty(key)){
+						link1=jsonResp[key].strResp.id1;
+						link2=jsonResp[key].strResp.id2;
+						link3=jsonResp[key].strResp.id3;
+						link4=jsonResp[key].strResp.id4;
+					}
+				}
+				/*
 				var jsonResp = JSON.parse(strResp);
 				for (var key in jsonResp) {
 					if (obj.hasOwnProperty(key)) {
@@ -158,7 +179,7 @@
 						link3=jsonResp[key].id3;
 						link4=jsonResp[key].id4;
 					}
-				}
+				}*/
 			}
 			
 			var Element2 = function ( id, x, y, z, ry ) {
