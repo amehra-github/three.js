@@ -363,10 +363,10 @@
 				var tot = Object.keys(jsonResp).length
 				var cats = document.getElementsByClassName("category");
 				var ctr = 0;
-				console.log(jsonResp);
 				outer:
 				for (var key in jsonResp) {
 				  if (jsonResp.hasOwnProperty(key)){
+					alert(key);
 					var jsonjr = jsonResp[key]
 					for(var k in jsonjr){
 						if(jsonResp.hasOwnProperty(k)){
