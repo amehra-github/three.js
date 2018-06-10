@@ -360,7 +360,7 @@
 	
 	function parser(strResp){
 				jsonResp = JSON.parse(strResp);
-				var tot = Object.keys(myObject).length
+				var tot = Object.keys(jsonResp).length
 				var cats = document.getElementsByClassName("category");
 				var ctr = 0;
 				outer:
