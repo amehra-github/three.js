@@ -429,6 +429,7 @@
 			function init2(strResp){
 				for (var key in jsonResp) {
 					if (jsonResp.hasOwnProperty(key) && jsonResp[key][strResp] != undefined){
+						alert(jsonResp[key][strResp]);
 						alert(jsonResp[key][strResp][0].toString().split(",")[0].split(":")[1].replace('"','').replace('"',''));
 						/*
 						link1=jsonResp[key].strResp.id1;
