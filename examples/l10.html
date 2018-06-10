@@ -365,10 +365,10 @@
 				var ctr = 0;
 				outer:
 				for (var key in jsonResp) {
-				  if (obj.hasOwnProperty(key)){
+				  if (jsonResp.hasOwnProperty(key)){
 					var jsonjr = jsonResp[key]
 					for(var k in jsonjr){
-						if(obj.hasOwnProperty(k)){
+						if(jsonResp.hasOwnProperty(k)){
 							cats[ctr].innerHTML=jsonjr[k];
 							ctr=ctr+1;
 							if(ctr>=tot){break outer;}
