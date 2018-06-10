@@ -336,6 +336,7 @@
 		init();
 		join();
 		animate();
+		init2(concept);
 
 	}
 
@@ -369,7 +370,7 @@
 					
 					var jsonjr = jsonResp[key]
 					for(var k in jsonjr){
-						alert(k);
+						//alert(k);
 						//if(jsonResp.hasOwnProperty(k)){
 							cats[ctr].innerHTML=k;
 							ctr=ctr+1;
@@ -426,6 +427,7 @@
 			function init2(strResp){
 				for (var key in jsonResp) {
 					if (obj.hasOwnProperty(key)){
+						alert(jsonResp[key].strResp.id1);
 						link1=jsonResp[key].strResp.id1;
 						link2=jsonResp[key].strResp.id2;
 						link3=jsonResp[key].strResp.id3;
