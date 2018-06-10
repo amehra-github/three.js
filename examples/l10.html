@@ -337,6 +337,7 @@
 		join();
 		animate();
 		alert(concept);
+		console.log(concept);
 		init2(concept);
 
 	}
@@ -427,8 +428,8 @@
 		
 			function init2(strResp){
 				for (var key in jsonResp) {
-					if (jsonResp.hasOwnProperty(key)){
-						alert(jsonResp[key].strResp);
+					if (jsonResp.hasOwnProperty(key) && jsonResp[key][strResp] != undefined){
+						alert(jsonResp[key][strResp][0].toString().split(",")[0].split(":")[1].replace('"','').replace('"',''));
 						/*
 						link1=jsonResp[key].strResp.id1;
 						link2=jsonResp[key].strResp.id2;
