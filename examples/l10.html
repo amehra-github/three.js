@@ -427,7 +427,7 @@
 		
 			function init2(strResp){
 				for (var key in jsonResp) {
-					if (obj.hasOwnProperty(key)){
+					if (jsonResp.hasOwnProperty(key)){
 						alert(jsonResp[key].strResp.id1);
 						link1=jsonResp[key].strResp.id1;
 						link2=jsonResp[key].strResp.id2;
