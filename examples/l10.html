@@ -369,6 +369,7 @@
 					var jsonjr = jsonResp[key]
 					for(var k in jsonjr){
 						if(jsonResp.hasOwnProperty(k)){
+							alert(jsonjr[k]);
 							cats[ctr].innerHTML=jsonjr[k];
 							ctr=ctr+1;
 							if(ctr>=tot){break outer;}
