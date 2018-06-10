@@ -370,12 +370,12 @@
 					var jsonjr = jsonResp[key]
 					for(var k in jsonjr){
 						alert(k);
-						if(jsonResp.hasOwnProperty(k)){
-							cats[ctr].innerHTML=jsonjr[k];
+						//if(jsonResp.hasOwnProperty(k)){
+							cats[ctr].innerHTML=k;
 							ctr=ctr+1;
 							if(ctr>=tot){break outer;}
 							if(ctr>=10 ){break outer;}
-						}
+						//}
 					}
         }
        }
