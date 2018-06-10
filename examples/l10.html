@@ -294,7 +294,10 @@
 	<script>
 	var camera, scene, renderer;
 	var controls;
-	var link1, link2, link3, link4;
+	var link1="zUpFoq24QdY";
+	var link2="1UE3hZ7cOP0";
+	var link3="A5r7wkwDID4";
+	var link4="ix5axxDGnco";
 	var gate = 1;
   var jsonResp;
 
@@ -336,9 +339,9 @@
 		init();
 		join();
 		animate();
-		alert(concept);
-		console.log(concept);
-		init2(concept);
+		//alert(concept);
+		//console.log(concept);
+		//init2(concept);
 
 	}
 
@@ -430,11 +433,11 @@
 				for (var key in jsonResp) {
 					if (jsonResp.hasOwnProperty(key) && jsonResp[key][strResp] != undefined){
 						alert(jsonResp[key][strResp][0].toString().split(",")[0].split(":")[1].replace('"','').replace('"',''));
-						/*
+						
 						link1=jsonResp[key].strResp.id1;
 						link2=jsonResp[key].strResp.id2;
 						link3=jsonResp[key].strResp.id3;
-						link4=jsonResp[key].strResp.id4;*/
+						link4=jsonResp[key].strResp.id4;
 					}
 				}
 			}
@@ -449,10 +452,10 @@
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		container.appendChild(renderer.domElement);
 		var group = new THREE.Group();
-		group.add(new Element('SJOz3qjfQXU', 0, 0, 240, 0));
-		group.add(new Element('Y2-xZ-1HE-Q', 240, 0, 0, Math.PI / 2));
-		group.add(new Element('IrydklNpcFI', 0, 0, -240, Math.PI));
-		group.add(new Element('9ubytEsCaS0', -240, 0, 0, -Math.PI / 2));
+		group.add(new Element(link1, 0, 0, 240, 0));
+		group.add(new Element(link2, 240, 0, 0, Math.PI / 2));
+		group.add(new Element(link3, 0, 0, -240, Math.PI));
+		group.add(new Element(link4, -240, 0, 0, -Math.PI / 2));
 		group.add( new Element2( '9ubytEsCaS0', -0, -180, 0, Math.PI / 2 ) );
 		group.add( new Element2( '9ubytEsCaS0', -0, 180, 0, - Math.PI / 2 ) );
 		scene.add(group);
