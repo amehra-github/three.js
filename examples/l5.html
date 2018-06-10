@@ -343,7 +343,8 @@
 
 	function init_boss() {
 		if(gate == 1) {
-			$('#filePic').click();
+			//$('#filePic').click();
+			document.getElementsByClassName('dropzone')[0].click();
 			console.log(document.getElementById("fotoImg"));
 			//document.getElementById("fotoImg").parentNode.removeChild(document.getElementById("fotoImg"));
 			$("#myModal").modal();
