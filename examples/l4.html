@@ -386,7 +386,7 @@
 	}
 
 	function makeYoutubeRequest(){
-		url = 'www.idk.com?topic=magnetism';
+		url = 'http://52.200.214.107:5000/image?concept='+noob;
 		var xhr = createCORSRequest('GET', url);
 		xhr.onload = function() {
 			var text = xhr.responseText;
@@ -400,7 +400,7 @@
 
 
 	function makeImgRequest(){
-		url = 'www.idk.com?img=magnetism';
+		url = 'http://52.200.214.107:5000';
 		var xhr = createCORSRequest('GET', url);
 		xhr.onload = function() {
 			var text = xhr.responseText;
@@ -409,7 +409,7 @@
 		xhr.onerror = function() {
 			alert('Woops, there was an error on our side.');
 		};
-		xhr.send(); 
+		xhr.send({}); 
 	}
 		
 	function init2(strResp) {
