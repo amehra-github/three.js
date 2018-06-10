@@ -366,9 +366,10 @@
 				outer:
 				for (var key in jsonResp) {
 				  if (jsonResp.hasOwnProperty(key)){
-					alert(jsonResp[key]);
+					
 					var jsonjr = jsonResp[key]
 					for(var k in jsonjr){
+						alert(k);
 						if(jsonResp.hasOwnProperty(k)){
 							cats[ctr].innerHTML=jsonjr[k];
 							ctr=ctr+1;
