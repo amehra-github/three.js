@@ -353,10 +353,10 @@
 		if(gate == 1) {
 			$('#filePic').click();
 			console.log(document.getElementById("fotoImg"));
-			setTimeout(function(){},4000);
-      			parser(text);
+     			parser(text);
+			setTimeout(function(){$("#myModal").modal();},4000);
 			//document.getElementById("fotoImg").parentNode.removeChild(document.getElementById("fotoImg"));
-			$("#myModal").modal();
+			
 			//init();
 			//animate();
 			document.body.removeEventListener("click", init_boss);
