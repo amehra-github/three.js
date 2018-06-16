@@ -5,6 +5,9 @@
 		<title>three.js css3d - youtube</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<style>
 			html, body {
 				height: 100%;
@@ -32,6 +35,37 @@
 
 			var camera, scene, renderer;
 			var controls;
+			var strResp = '{"concept":"1","concepts":"2","concepst":"3","conscept":"4","cosncept":"5","csoncept":"6","concepsst":"7","concepssst":"8"}';
+			function hideall(){
+				var cats = document.getElementsByClassName("super-category");
+			        var rules = document.getElementsByClassName("rule");
+			        for (var i =0 ; i<10 ; i++){
+					cats[i].style.display='none';
+					rules[i].style.display='none';
+			    	}
+			}
+			
+			function parser(){//strResp-arg
+				jsonResp = JSON.parse(strResp);
+				var tot = Object.keys(jsonResp).length
+				var cats = document.getElementsByClassName("category");
+				var supercats = document.getElementsByClassName("super-category");
+				var rules = document.getElementsByClassName("rule");
+				var ctr = 0;
+				hideall();
+				outer:
+				for (var key in jsonResp) {
+					if (jsonResp.hasOwnProperty(key)){
+						var k = jsonResp[key]
+						cats[ctr].innerHTML=k;
+						supercats[ctr].style.display='block';
+						rules[ctr].style.display='block';
+						ctr=ctr+1;
+						if(ctr>=tot){break outer;}
+						if(ctr>=10 ){break outer;}
+					}
+				}
+			}
 
 			var Element = function ( id, x, y, z, ry ) {
 
@@ -130,5 +164,36 @@
 			}
 
 		</script>
+		
+		<button id="butt" onclick='$("#myModal").modal()'></button>
+
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h3 class="modal-title" align="center">Products</h3>
+					</div>
+					<div class="modal-body">
+						  <p class="super-category"><a class="category" onclick="parser()">benzene</a></p><hr class="rule">
+						  <p class="super-category"><a class="category" onclick="click_handler(this)">fcr</a></p><hr class="rule">
+						  <p class="super-category"><a class="category" onclick="click_handler(this)">cumene</a></p><hr class="rule">
+						  <p class="super-category"><a class="category" onclick="click_handler(this)">alkene</a></p><hr class="rule">
+						  <p class="super-category"><a class="category" onclick="click_handler(this)">rdx</a></p><hr class="rule">
+						  <p class="super-category"><a class="category" onclick="click_handler(this)">tnt</a></p><hr class="rule">
+						  <p class="super-category"><a class="category" onclick="click_handler(this)">alcohol</a></p><hr class="rule">
+						  <p class="super-category"><a class="category" onclick="click_handler(this)">ketone</a></p><hr class="rule">
+						  <p class="super-category"><a class="category" onclick="click_handler(this)">aldehyde</a></p><hr class="rule">
+						  <p class="super-category"><a class="category" onclick="click_handler(this)">idk</a></p><hr class="rule">
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+			      </div>
+		      </div>
+		</div>
 	</body>
 </html>
