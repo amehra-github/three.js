@@ -38,7 +38,7 @@
 			    display: inline-block;
 			    margin: 10px;
 			    top: 40%;
-			    left: 35%;
+			    left: 40%;
 			    -webkit-border-radius: 8px;
 			    -moz-border-radius: 8px;
 			    border-radius: 8px;
@@ -173,6 +173,7 @@
 				init();
 				animate();
 				$("#myModal").modal('hide');
+				document.getElementById("looker").style.display="none";
 			}
 			
 			function init() {
@@ -231,7 +232,7 @@
 			
 			
 		</script>
-		<a onclick='$("#myModal").modal()' class="button">
+		<a id="looker" onclick='$("#myModal").modal()' class="button">
 			<span>Look Up</span>
 		</a>
 		<div class="container">
