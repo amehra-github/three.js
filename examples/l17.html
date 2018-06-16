@@ -1,0 +1,274 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>three.js css3d - youtube</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link href='https://fonts.googleapis.com/css?family=Tangerine' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<style>
+			html, body {
+				height: 100%;
+				overflow: hidden;
+				background-color: #D3D3D3;
+				
+			}
+			/*#blocker {
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				width: 100%;
+				height: 100%;
+			}*/
+		</style>
+	</head>
+	<body>
+		<script src="../build/three.js"></script>
+		<script src="js/controls/TrackballControls.js"></script>
+		<script src="js/renderers/CSS3DRenderer.js"></script>
+		
+		<style>
+			
+
+			.button {
+			    position: fixed;
+			    display: inline-block;
+			    margin: 10px;
+			    top: 40%;
+			    left: 27%;
+			    -webkit-border-radius: 8px;
+			    -moz-border-radius: 8px;
+			    border-radius: 8px;
+			    -webkit-box-shadow:    0 8px 0 #c5376d, 0 15px 20px rgba(0, 0, 0, .35);
+			    -moz-box-shadow: 0 8px 0 #c5376d, 0 15px 20px rgba(0, 0, 0, .35);
+			    box-shadow: 0 8px 0 #c5376d, 0 15px 20px rgba(0, 0, 0, .35);
+			    -webkit-transition: -webkit-box-shadow .1s ease-in-out;
+			    -moz-transition: -moz-box-shadow .1s ease-in-out;
+			    -o-transition: -o-box-shadow .1s ease-in-out;
+			    transition: box-shadow .1s ease-in-out;
+			    font-size: 7vw;
+			    color: #fff;
+			}
+
+			.button span {
+			    display: inline-block;
+			    padding: 20px 30px;
+			    background-color: #FF0000;
+			    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(hsla(338, 90%, 80%, .8)), to(hsla(338, 90%, 70%, .2)));
+			    background-image: -webkit-linear-gradient(hsla(338, 90%, 80%, .8), hsla(338, 90%, 70%, .2));
+			    background-image: -moz-linear-gradient(hsla(338, 90%, 80%, .8), hsla(338, 90%, 70%, .2));
+			    background-image: -o-linear-gradient(hsla(338, 90%, 80%, .8), hsla(338, 90%, 70%, .2));
+			    -webkit-border-radius: 8px;
+			    -moz-border-radius: 8px;
+			    border-radius: 8px;
+			    -webkit-box-shadow: inset 0 -1px 1px rgba(255, 255, 255, .15);
+			    -moz-box-shadow: inset 0 -1px 1px rgba(255, 255, 255, .15);
+			    box-shadow: inset 0 -1px 1px rgba(255, 255, 255, .15);
+			    font-family: 'Tangerine', serif;;
+			    line-height: 1;
+			    text-shadow: 0 -1px 1px rgba(175, 49, 95, .7);
+			    -webkit-transition: background-color .2s ease-in-out, -webkit-transform .1s ease-in-out;
+			    -moz-transition: background-color .2s ease-in-out, -moz-transform .1s ease-in-out;
+			    -o-transition: background-color .2s ease-in-out, -o-transform .1s ease-in-out;
+			    transition: background-color .2s ease-in-out, transform .1s ease-in-out;
+			}
+
+			.button:hover span {
+			    background-color: #ec6a9c;
+			    text-shadow: 0 -1px 1px rgba(175, 49, 95, .9), 0 0 5px rgba(255, 255, 255, .8);
+			}
+
+			.button:active, .button:focus {
+			    -webkit-box-shadow:    0 8px 0 #c5376d, 0 12px 10px rgba(0, 0, 0, .3);
+			    -moz-box-shadow: 0 8px 0 #c5376d, 0 12px 10px rgba(0, 0, 0, .3);
+			    box-shadow:    0 8px 0 #c5376d, 0 12px 10px rgba(0, 0, 0, .3);
+			}
+
+			.button:active span {
+			    -webkit-transform: translate(0, 4px);
+			    -moz-transform: translate(0, 4px);
+			    -o-transform: translate(0, 4px);
+			    transform: translate(0, 4px);
+			}
+		</style>
+
+		<script>
+			
+			var camera, scene, renderer;
+			var controls;
+			var strResp = '{"concept":"1","concepts":"2","concepst":"3","conscept":"4","cosncept":"5","csoncept":"6","concepsst":"7","concepssst":"8"}';
+			function hideall(){
+				var cats = document.getElementsByClassName("super-category");
+			        var rules = document.getElementsByClassName("rule");
+			        for (var i =0 ; i<10 ; i++){
+					cats[i].style.display='none';
+					rules[i].style.display='none';
+			    	}
+			}
+			
+			function parser(){//strResp-arg
+				jsonResp = JSON.parse(strResp);
+				var tot = Object.keys(jsonResp).length
+				var cats = document.getElementsByClassName("category");
+				var supercats = document.getElementsByClassName("super-category");
+				var rules = document.getElementsByClassName("rule");
+				var ctr = 0;
+				hideall();
+				outer:
+				for (var key in jsonResp) {
+					if (jsonResp.hasOwnProperty(key)){
+						var k = jsonResp[key]
+						cats[ctr].innerHTML=k;
+						supercats[ctr].style.display='block';
+						rules[ctr].style.display='block';
+						ctr=ctr+1;
+						if(ctr>=tot){break outer;}
+						if(ctr>=10 ){break outer;}
+					}
+				}
+			}
+
+			var Element = function ( id, x, y, z, ry ) {
+
+				var div = document.createElement( 'div' );
+				div.style.width = '480px';
+				div.style.height = '360px';
+				div.style.backgroundColor = '#000';
+
+				var iframe = document.createElement( 'iframe' );
+				iframe.style.width = '480px';
+				iframe.style.height = '360px';
+				iframe.style.border = '0px';
+				iframe.src = [ 'https://www.', id].join( '' );
+				div.appendChild( iframe );
+
+				var object = new THREE.CSS3DObject( div );
+				object.position.set( x, y, z );
+				object.rotation.y = ry;
+
+				return object;
+
+			};
+			
+			var Element2 = function ( id, x, y, z, ry ) {
+				var div = document.createElement( 'div' );
+				div.style.width = '480px';
+				div.style.height = '480px';
+				div.style.backgroundColor = '#0FF';
+				var div2 = document.createElement( 'div' );
+				div.style.width = '475px';
+				div.style.height = '475px';
+				div.style.backgroundColor = '#000';
+				div.appendChild(div2);
+				var object = new THREE.CSS3DObject( div );
+				object.position.set( x, y, z );
+				object.rotation.x = ry;
+				return object;
+			};
+
+			function start3d() {
+				init();
+				animate();
+				$("#myModal").modal('hide');
+				document.getElementById("looker").style.display="none";
+			}
+			
+			function init() {
+
+				var container = document.getElementById( 'containers' );
+
+				camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 5000 );
+				camera.position.set( 500, 350, 750 );
+
+				scene = new THREE.Scene();
+
+				renderer = new THREE.CSS3DRenderer();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				container.appendChild( renderer.domElement );
+
+				var group = new THREE.Group();
+				group.add( new Element( 'koovs.com', 0, 0, 240, 0 ) );
+				group.add( new Element( 'koovs.com', 240, 0, 0, Math.PI / 2 ) );
+				group.add( new Element( 'koovs.com', 0, 0, - 240, Math.PI ) );
+				group.add( new Element( 'nykaa.com', - 240, 0, 0, - Math.PI / 2 ) );
+				group.add( new Element2( '9ubytEsCaS0', -0, -180, 0, Math.PI / 2 ) );
+				group.add( new Element2( '9ubytEsCaS0', -0, 180, 0, - Math.PI / 2 ) );
+				scene.add( group );
+
+				controls = new THREE.TrackballControls( camera );
+				controls.rotateSpeed = 4;
+
+				window.addEventListener( 'resize', onWindowResize, false );
+
+				// Block iframe events when dragging camera
+				/*
+				var last_divdocument.createElement('div');
+				var blocker = document.getElementById( 'blocker' );
+				blocker.style.display = 'none';
+
+				document.addEventListener( 'mousedown', function () { blocker.style.display = ''; } );
+				document.addEventListener( 'mouseup', function () { blocker.style.display = 'none'; } );*/
+
+			}
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+			}
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+				controls.update();
+				renderer.render( scene, camera );
+
+			}
+			
+			
+		</script>
+		<a id="looker" onclick='$("#myModal").modal()' class="button">
+			<span><b>Abra Kadabra!</b></span>
+		</a>
+		<div class="container">
+			<!--<button id="butt" onclick='$("#myModal").modal()'>Button</button>-->
+			
+			<!-- Modal -->
+			<div class="modal fade" id="myModal" role="dialog">
+				<div class="modal-dialog">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h3 class="modal-title" align="center">Products</h3>
+						</div>
+						<div class="modal-body">
+							  <p class="super-category"><a class="category" onclick="start3d()">benzene</a></p><hr class="rule">
+							  <p class="super-category"><a class="category" onclick="start3d()">fcr</a></p><hr class="rule">
+							  <p class="super-category"><a class="category" onclick="start3d()">cumene</a></p><hr class="rule">
+							  <p class="super-category"><a class="category" onclick="start3d()">alkene</a></p><hr class="rule">
+							  <p class="super-category"><a class="category" onclick="start3d()">rdx</a></p><hr class="rule">
+							  <p class="super-category"><a class="category" onclick="start3d()">tnt</a></p><hr class="rule">
+							  <p class="super-category"><a class="category" onclick="start3d()">alcohol</a></p><hr class="rule">
+							  <p class="super-category"><a class="category" onclick="start3d()">ketone</a></p><hr class="rule">
+							  <p class="super-category"><a class="category" onclick="start3d()">aldehyde</a></p><hr class="rule">
+							  <p class="super-category"><a class="category" onclick="start3d()">idk</a></p><hr class="rule">
+						</div>
+
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						</div>
+				      </div>
+			      </div>
+			</div>
+		</div>
+		
+		<div id="containers"></div>
+		<!--<div id="blocker"></div>-->
+	</body>
+</html>
