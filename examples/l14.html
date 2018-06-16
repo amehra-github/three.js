@@ -470,10 +470,10 @@
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		container.appendChild(renderer.domElement);
 		var group = new THREE.Group();
-		group.add(new Element(link1, 0, 0, 240, 0));
-		group.add(new Element(link2, 240, 0, 0, Math.PI / 2));
-		group.add(new Element(link3, 0, 0, -240, Math.PI));
-		group.add(new Element(link4, -240, 0, 0, -Math.PI / 2));
+		group.add(new Element3(link1, 0, 0, 240, 0));
+		group.add(new Element3(link2, 240, 0, 0, Math.PI / 2));
+		group.add(new Element3(link3, 0, 0, -240, Math.PI));
+		group.add(new Element3(link4, -240, 0, 0, -Math.PI / 2));
 		group.add( new Element2( '9ubytEsCaS0', -0, -180, 0, Math.PI / 2 ) );
 		group.add( new Element2( '9ubytEsCaS0', -0, 180, 0, - Math.PI / 2 ) );
 		scene.add(group);
