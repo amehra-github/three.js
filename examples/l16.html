@@ -54,6 +54,17 @@
 				return object;
 
 			};
+			
+			var Element2 = function ( id, x, y, z, ry ) {
+				var div = document.createElement( 'div' );
+				div.style.width = '480px';
+				div.style.height = '480px';
+				div.style.backgroundColor = '#FFF';
+				var object = new THREE.CSS3DObject( div );
+				object.position.set( x, y, z );
+				object.rotation.x = ry;
+				return object;
+			};
 
 			function start3d() {
 				init();
@@ -78,6 +89,8 @@
 				group.add( new Element( 'koovs.com', 240, 0, 0, Math.PI / 2 ) );
 				group.add( new Element( 'koovs.com', 0, 0, - 240, Math.PI ) );
 				group.add( new Element( 'nykaa.com', - 240, 0, 0, - Math.PI / 2 ) );
+				group.add( new Element2( '9ubytEsCaS0', -0, -180, 0, Math.PI / 2 ) );
+				group.add( new Element2( '9ubytEsCaS0', -0, 180, 0, - Math.PI / 2 ) );
 				scene.add( group );
 
 				controls = new THREE.TrackballControls( camera );
