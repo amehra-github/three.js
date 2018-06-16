@@ -28,63 +28,63 @@
 		<script src="js/renderers/CSS3DRenderer.js"></script>
 		
 		<style>
-		@size: 200px;
-		@dropSize: 15px;
-		@color: #f74d4d;
-		@color2: #f86569;
-		@dropColor: #e24f4f;
+		$button-height: 80px;
+		$button-width: 480px;
+		$press-time: .4s;
 
-		body { 
-		  background: #333;
-
-		  .center {
-		    left: 50%;
-		    top: 50%;
-		    position: absolute;
-		    margin-left: -@size/2;
-		    margin-top: -@size/2;
-
-		    .select-button {
-		      .bigRedButton(@size, @dropSize, @color, @color2, @dropColor);
-		    }
-		  }
+		html, body{
+			height: 100%;
+			width: 100%;
 		}
 
-		.bigRedButton(@size, @dropSize, @color, @color2, @dropColor) {
-		    width: @size;
-		    height: @size - @size/10;
-		    line-height: @size;
-		    text-align: center;
-		    cursor: pointer;
-		    border-radius: 50%;
-		    background: @color;
-
-		    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, @color), color-stop(100%, @color2));
-
-		     background-image: -moz-gradient(linear, left top, left bottom, color-stop(0%,@color), color-stop(100%,@color2));
-
-		    box-shadow: 0 @dropSize @dropColor;
-
-		    &:active {
-		      box-shadow: 0 0 @dropColor;
-		      .translate(0px, @dropSize);
-		      .transition( 0.1s all ease-out);
-		    }
+		body{
+			background-color: #eee;
+			position: relative;
+			margin: 0;
 		}
 
-		.translate (@x, @y:0) {
-		  -webkit-transform: translate(@x, @y);
-		  -moz-transform:    translate(@x, @y);
-		  -ms-transform:     translate(@x, @y);
-		  -o-transform:      translate(@x, @y);
-		}
+		.button{
 
-		.transition (@transition) {
-		  -webkit-transition: @transition;  
-		  -moz-transition:    @transition;
-		  -ms-transition:     @transition; 
-		  -o-transition:      @transition;
-		   transition:        @transition;
+		    box-shadow: 0px 15px 0 20px #352d2d, 0px 40px 0 30px #000000;
+			cursor: pointer;
+			background-color: #c0392b;
+			position: absolute;
+			border-radius: 50%;
+			top: 50%;
+			left: 50%;
+			width: $button-width;
+			height: $button-height;
+			transform: translateX(-50%);
+
+			&::before{
+				content: '';
+				z-index: 1;
+				border-radius: 50%;
+				background-color: #e74c3c;
+				position: absolute;
+				bottom: 100%;
+				left: 0%;
+				transition: bottom $press-time;
+				width: $button-width;
+				height: $button-height;
+			}
+
+			&::after{
+				content: '';
+				background-color: #c0392b;
+				position: absolute;
+				bottom: 50%;
+				left: 0%;
+				width: $button-width;
+				height: $button-height;
+				transition: height $press-time;
+			}
+
+			&:active{
+				&::before{ bottom: 10%; }
+				&::after{ height: 10%; }
+			}
+
 		}
 		</style>
 
@@ -224,9 +224,7 @@
 			
 			
 		</script>
-		<div class="center">
-			<div class="select-button"></div>
-		</div>
+		<a class="button"></a>
 		<div class="container">
 			<!--<button id="butt" onclick='$("#myModal").modal()'>Button</button>-->
 			
