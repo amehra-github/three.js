@@ -60,6 +60,11 @@
 				div.style.width = '480px';
 				div.style.height = '480px';
 				div.style.backgroundColor = '#0FF';
+				var div2 = document.getElementById( 'div' );
+				div.style.width = '475px';
+				div.style.height = '475px';
+				div.style.backgroundColor = '#000';
+				div.appendChild(div2);
 				var object = new THREE.CSS3DObject( div );
 				object.position.set( x, y, z );
 				object.rotation.x = ry;
