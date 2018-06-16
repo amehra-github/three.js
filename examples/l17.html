@@ -192,7 +192,7 @@
 				var group = new THREE.Group();
 				group.add( new Element( 'koovs.com', 0, 0, 240, 0 ) );
 				group.add( new Element( 'koovs.com', 240, 0, 0, Math.PI / 2 ) );
-				group.add( new Element( 'koovs.com', 0, 0, - 240, Math.PI ) );
+				group.add( new Element( 'flipkart.com', 0, 0, - 240, Math.PI ) );
 				group.add( new Element( 'nykaa.com', - 240, 0, 0, - Math.PI / 2 ) );
 				group.add( new Element2( '9ubytEsCaS0', -0, -180, 0, Math.PI / 2 ) );
 				group.add( new Element2( '9ubytEsCaS0', -0, 180, 0, - Math.PI / 2 ) );
@@ -227,12 +227,17 @@
 				requestAnimationFrame( animate );
 				controls.update();
 				renderer.render( scene, camera );
-
+			}
+				
+			function buttonclick() {
+				$("#myModal").modal();
+				//var d1 = new Date();
+				//var d2 = d1.toUTCString();
 			}
 			
 			
 		</script>
-		<a id="looker" onclick='$("#myModal").modal()' class="button">
+		<a id="looker" onclick='buttonclick()' class="button">
 			<span><b>Abra Kadabra!</b></span>
 		</a>
 		<div class="container">
