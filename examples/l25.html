@@ -170,17 +170,18 @@
 				return object;
 			};
       
-      var Element3 = function(){
-        var div = document.createElement( 'div' );
+      			var Element3 = function(){
+        			var div = document.createElement( 'div' );
 				div.style.width = '480px';
 				div.style.height = '360px';
 				div.style.backgroundColor = '#000';
 
 				var iframe = document.createElement( 'iframe' );
+				iframe.id="completeshit";
 				iframe.style.width = '100vw';
 				iframe.style.height = '100vh';
 				iframe.style.border = '0px';
-				iframe.src = [ 'https://www.', id].join( '' );
+				iframe.src = 'https://wi-images.condecdn.net/image/6klbvPVy51g/crop/810/f/switch_pokemonletsgo_screen_01_mew.png';
 				div.appendChild( iframe );
 
 				var object = new THREE.CSS3DObject( div );
@@ -218,7 +219,7 @@
 				group.add( new Element2( '9ubytEsCaS0', -0, -180, 0, Math.PI / 2 ) );
 				group.add( new Element2( '9ubytEsCaS0', -0, 180, 0, - Math.PI / 2 ) );
 				scene.add( group );
-
+				alert($("#completeshit"));
 				controls = new THREE.TrackballControls( camera );
 				controls.rotateSpeed = 4;
 
