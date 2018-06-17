@@ -178,8 +178,8 @@
 
 				var iframe = document.createElement( 'iframe' );
 				iframe.id="completeshit";
-				iframe.style.width = '100vw';
-				iframe.style.height = '100vh';
+				iframe.style.width = '100%';
+				iframe.style.height = '100%';
 				iframe.style.border = '0px';
 				iframe.src = 'https://wi-images.condecdn.net/image/6klbvPVy51g/crop/810/f/switch_pokemonletsgo_screen_01_mew.png';
 				div.appendChild( iframe );
@@ -219,7 +219,7 @@
 				group.add( new Element2( '9ubytEsCaS0', -0, -180, 0, Math.PI / 2 ) );
 				group.add( new Element2( '9ubytEsCaS0', -0, 180, 0, - Math.PI / 2 ) );
 				scene.add( group );
-				alert($("#completeshit"));
+				$("#completeshit").contentDocument.addEventListener("click",clk,false);
 				controls = new THREE.TrackballControls( camera );
 				controls.rotateSpeed = 4;
 
