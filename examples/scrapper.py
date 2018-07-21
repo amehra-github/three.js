@@ -1,43 +1,25 @@
-import requests
 import json
+import urllib2
 from bs4 import BeautifulSoup
-import re
+from flask import request
 
-def create_query(phrase):
-    query_inc = re.sub("[']",'',phrase)
-    query=re.sub(" ","+",query_inc)
-    return query
+### Source ###
 
-def find_prod(prod="grey jacket for men"):
-    response={}
-    arr=[]
-    fin_arr=[]
-    query=create_query(prod)
-    page = requests.get("https://www.flipkart.com/search?q="+query+"&marketplace=FLIPKART&otracker=start&as-show=on&as=off")
-    soup = BeautifulSoup(page.content, 'html.parser')
-    prodsrc = soup.find_all(class_="_2cLu-l")
-    price=soup.find_all(class_="_1vC4OE")
-    ctr=0
-    arr=[]
-    for i in prodsrc:
-        arr.append("https://www.flipkart.com"+str(i['href']))
-        ctr+=1
-        if ctr>=4:
-            break;
-    ctr=0
-    fin_arr.append(arr)
-    arr=[]
-    for i in price:
-        arr.append("Rs "+str(i.get_text()[1:]))
-        ctr+=1
-        if ctr>=4:
-            break;
-    ctr=0
-    fin_arr.append(arr)
-    arr=[]
-    response[prod]=fin_arr
-    return response
+### <1.> Returns Embed links for youtube videos with term <t>
+def getvids(textToSearch = "One Piece Songs"):
+	query = urllib2.quote(textToSearch)
+	url = "https://www.youtube.com/results?search_query=" + query
+	response = urllib2.urlopen(url)
+	html = response.read()
+	soup = BeautifulSoup(html,"html5lib")
+	arr = set()
+	for vid in soup.findAll(attrs={'class':'yt-uix-tile-link'}):
+		if (not vid['href'].startswith("https://www.googleadservices.com")) and (not vid['href'].startswith("channel/")):
+			arr.add(vid['href'].split("=")[-1])
+    	return list(arr)
 
-print find_prod()
-            
+### Abstracted ###
 
+### See <1.> 
+def gv(t = "One Piece Songs"):
+	return getvids(t)	
