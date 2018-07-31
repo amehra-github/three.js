@@ -102,6 +102,15 @@
 		object.rotation.x = ry;
 		return object;
 	};
+		
+	function reset(){
+		document.body.addEventListener('click', init_boss, true);
+		gate=1;
+		for (var i=0;i<10;i++){
+			document.getElementsByClassName("category")[i].innerHTML="";
+		}
+		$("#myModal").modal('hide');
+	}
 			
 	function click_handler(ele){
 		var concept = ele.innerHTML;
@@ -271,24 +280,24 @@
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close" data-dismiss="modal" onclick="reset();false;">&times;</button>
           <h3 class="modal-title" align="center">Key Concepts</h3>
         </div>
         <div class="modal-body">
-          <p><a class="category" onclick="click_handler(this)">benzene</a></p><hr>
-          <p><a class="category" onclick="click_handler(this)">fcr</a></p><hr>
-          <p><a class="category" onclick="click_handler(this)">cumene</a></p><hr>
-          <p><a class="category" onclick="click_handler(this)">alkene</a></p><hr>
-          <p><a class="category" onclick="click_handler(this)">rdx</a></p><hr>
-          <p><a class="category" onclick="click_handler(this)">tnt</a></p><hr>
-          <p><a class="category" onclick="click_handler(this)">alcohol</a></p><hr>
-          <p><a class="category" onclick="click_handler(this)">ketone</a></p><hr>
-          <p><a class="category" onclick="click_handler(this)">aldehyde</a></p><hr>
-          <p><a class="category" onclick="click_handler(this)">idk</a></p>
+          <p><a class="category" onclick="click_handler(this)"></a></p><hr>
+          <p><a class="category" onclick="click_handler(this)"></a></p><hr>
+          <p><a class="category" onclick="click_handler(this)"></a></p><hr>
+          <p><a class="category" onclick="click_handler(this)"></a></p><hr>
+          <p><a class="category" onclick="click_handler(this)"></a></p><hr>
+          <p><a class="category" onclick="click_handler(this)"></a></p><hr>
+          <p><a class="category" onclick="click_handler(this)"></a></p><hr>
+          <p><a class="category" onclick="click_handler(this)"></a></p><hr>
+          <p><a class="category" onclick="click_handler(this)"></a></p><hr>
+          <p><a class="category" onclick="click_handler(this)"></a></p>
         </div>
         
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" onclick="reset();false;">Close</button>
         </div>
       </div>
       
