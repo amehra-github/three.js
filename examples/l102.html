@@ -133,7 +133,6 @@
 			xhr.open('POST', url, false);
 			xhr.onload = function() {
 				var text = xhr.responseText;
-				alert(text);
 			};
 			xhr.onerror = function() {
 				alert('Woops, there was an error on our side.');
@@ -204,6 +203,7 @@
 		xhr.onload = function() {
 			var text = xhr.responseText;
 			parser(text);
+			alert(text);
 		};
 		xhr.onerror = function() {
 			alert('Woops, there was an error on our side.');
