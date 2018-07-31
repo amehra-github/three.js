@@ -148,7 +148,14 @@
 			xhr.send(dataURL);
 			});
 		*/
+			video = document.getElementsByTagName("video")[0]
+			var canvas = document.createElement('canvas');
+		    	canvas.height = video.videoHeight;
+		    	canvas.width = video.videoWidth;
+		    	var ctx = canvas.getContext('2d');
+		    	ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 			url = 'http://localhost:5000/postimage';
+			alert("hi")
 			var xhr = new XMLHttpRequest();
 			xhr.open('POST', url, false);
 			xhr.onload = function() {
@@ -158,7 +165,7 @@
 			xhr.onerror = function() {
 				alert('Woops, there was an error on our side.');
 			};
-			xhr.send(document.getElementsByClassName("a-canvas")[0].toDataURL());
+			xhr.send(canvas.toDataURL());
 			document.body.removeEventListener("click", init_boss);
 			gate = 0;
 		}
