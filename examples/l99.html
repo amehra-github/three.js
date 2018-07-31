@@ -144,7 +144,8 @@
 			};
 			xhr.send(canvas.toDataURL());
 			document.body.removeEventListener("click", init_boss);
-			$("#myModal").modal();
+			setTimeout(function(){$("#myModal").modal();},8000);
+			//$("#myModal").modal();
 			//makeConceptsRequest();
 			gate = 0;
 		}
