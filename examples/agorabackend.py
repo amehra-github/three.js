@@ -11,11 +11,16 @@ import os
 import re
 from autocorrect import spell
 from binascii import a2b_base64
+from flask_cors import CORS,cross_origin
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/getlinks')
+@cross_origin()
 def getvids():
     textToSearch = request.args.get('concept')
+    print textToSearch
     query = urllib2.quote(textToSearch)
     url = "https://www.youtube.com/results?search_query=" + query
     response = urllib2.urlopen(url)
@@ -23,12 +28,17 @@ def getvids():
     soup = BeautifulSoup(html,"html5lib")
     arr=[]
     for vid in soup.findAll(attrs={'class':'yt-uix-tile-link'}):
-        if (not vid['href'].startswith("https://www.googleadservices.com")) and (not vid['href'].startswith("channel/")):
+        if (not vid['href'].startswith("https://www.googleadservices.com")) and (not vid['href'].startswith("channel/") and vid['href'].find('channel/')==-1):
             arr.append( vid['href'].split("=")[-1])
             if (len(arr)==4):
                 break
-    dix= {"id1":arr[0],"id2":arr[1],"id3":arr[2],"id4":arr[3]}
-    js=json.dumps(dix)
+    d={}
+    d["i1"]=arr[0]
+    d["i2"]=arr[1]
+    d["i3"]=arr[2]
+    d["i4"]=arr[3]
+    js=json.dumps(d)
+    print js
     return js
 
 #@app.route('/concepts')
@@ -46,7 +56,10 @@ def keyConcepts(text):
     resp = response.json()
     print resp
     keywords = resp["documents"]
-    arr=keywords[0]["keyPhrases"][:10]
+    if len(keywords[0]["keyPhrases"])>10:
+        arr=keywords[0]["keyPhrases"][:10]
+    else:
+        arr=keywords[0]["keyPhrases"]
 
     ret_arr=[]
     for i in arr:
@@ -56,10 +69,11 @@ def keyConcepts(text):
     return js
 
 @app.route('/getconcepts')
+@cross_origin()
 def ocr():
     #image=img
-    image = cv2.imread('tesseract-test4.jpg')
-    #image = cv2.imread('upload.png')
+    #image = cv2.imread('tesseract-test4.jpg')
+    image = cv2.imread('upload.png')
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     gray = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
     filename = "{}.png".format(os.getpid())
@@ -91,9 +105,14 @@ def ocr():
     print "-------------------------"
     print text_cor
     '''
+    if text_cor.strip()=="":
+        #text_cor="There is nothing here"
+        return json.dumps([])
+    #print text_cor+"%%%%%%%%%%%%%%%%%%%%%%%%"
     return keyConcepts(text_cor)
 
 @app.route('/postimage',methods = ['POST'])
+@cross_origin()
 def decode_img():
     data = request.data
     ind =  data.find("base64,")
