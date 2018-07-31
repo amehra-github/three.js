@@ -10,7 +10,9 @@ import cv2
 import os
 import re
 from autocorrect import spell
+from binascii import a2b_base64
 app = Flask(__name__)
+
 @app.route('/getlinks')
 def getvids():
     textToSearch = request.args.get('concept')
@@ -31,7 +33,7 @@ def getvids():
 
 #@app.route('/concepts')
 def keyConcepts(text):
-    subscription_key = "8280c00a78e9487782155b5021417894"
+    subscription_key = "3ca06abc3220453e91c3cb580cb71e5f"
     assert subscription_key
 
     text_analytics_base_url = "https://westcentralus.api.cognitive.microsoft.com/text/analytics/v2.0/"
@@ -57,6 +59,7 @@ def keyConcepts(text):
 def ocr():
     #image=img
     image = cv2.imread('tesseract-test4.jpg')
+    #image = cv2.imread('upload.png')
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     gray = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
     filename = "{}.png".format(os.getpid())
@@ -83,9 +86,27 @@ def ocr():
             text_cor=text_cor+i
         else:
             cur+=i
+    '''
+    print text
+    print "-------------------------"
+    print text_cor
+    '''
     return keyConcepts(text_cor)
 
+@app.route('/postimage',methods = ['POST'])
+def decode_img():
+    data = request.data
+    ind =  data.find("base64,")
+    binary_data = a2b_base64(data[ind+7:])
+    
+    fd = open('upload.png', 'wb')
+    fd.write(binary_data)
+    fd.close()
+    return "200"
+
 #ocr()
+#'''
 if __name__=='__main__':
     app.debug=True
     app.run(host="0.0.0.0",port=5000)
+#'''
