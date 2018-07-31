@@ -156,7 +156,7 @@
 			if (jsonResp.hasOwnProperty(key)){
 				var jsonjr = jsonResp[key]
 				for(var k in jsonjr){
-					//alert(k);
+					alert(jsonjr[k]);
 					//if(jsonResp.hasOwnProperty(k)){
 						cats[ctr].innerHTML=jsonjr[k];
 						ctr=ctr+1;
