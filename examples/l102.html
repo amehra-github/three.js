@@ -106,7 +106,7 @@
 	function click_handler(ele){
 		var concept = ele.innerHTML;
 		$("#myModal").modal('hide');
-		makeYoutubeRequest();
+		makeYoutubeRequest(concept);
 		init();
 		//join();
 		animate();
@@ -214,7 +214,7 @@
 		for (var key in jsonResp) {
 			//if (jsonResp.hasOwnProperty(key) && jsonResp[key][strResp] != undefined){
 				//alert(jsonResp[key][strResp][0].toString().split(",")[0].split(":")[1].replace('"','').replace('"',''));
-				
+				alert(key);
 				link1=jsonResp[key][0];
 				link2=jsonResp[key][1];
 				link3=jsonResp[key][2];
