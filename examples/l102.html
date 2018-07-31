@@ -146,7 +146,7 @@
 	}
 		
 	
-	function parser(strResp){
+	function conceptsparser(strResp){
 		jsonResp = JSON.parse(strResp);
 		var tot = Object.keys(jsonResp).length
 		var cats = document.getElementsByClassName("category");
@@ -156,13 +156,11 @@
 			if (jsonResp.hasOwnProperty(key)){
 				var jsonjr = jsonResp[key]
 				for(var k in jsonjr){
-					alert(jsonjr[k]);
-					//if(jsonResp.hasOwnProperty(k)){
-						cats[ctr].innerHTML=jsonjr[k];
-						ctr=ctr+1;
-						if(ctr>=tot){break outer;}
-						if(ctr>=10 ){break outer;}
-					//}
+					cats[ctr].innerHTML=jsonjr[k];
+					ctr=ctr+1;
+					if(ctr>=tot){break outer;}
+					if(ctr>=10 ){break outer;}
+					
 				}
        			}
        		}
@@ -202,8 +200,7 @@
 		var xhr = createCORSRequest('GET', url);
 		xhr.onload = function() {
 			var text = xhr.responseText;
-			parser(text);
-			alert(text);
+			conceptsparser(text);
 		};
 		xhr.onerror = function() {
 			alert('Woops, there was an error on our side.');
