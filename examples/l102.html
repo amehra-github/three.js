@@ -132,6 +132,7 @@
 		    	canvas.width = video.videoWidth;
 		    	var ctx = canvas.getContext('2d');
 		    	ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+			//#####################REPLACE localhost with server IP###########################
 			url = 'http://localhost:5000/postimage';
 			var xhr = new XMLHttpRequest();
 			xhr.open('POST', url, false);
@@ -185,6 +186,7 @@
 	}
 
 	function makeYoutubeRequest(noob){
+		//#####################REPLACE localhost with server IP###########################
 		url = 'http://localhost:5000/getlinks?concept='+noob;
 		var xhr = new XMLHttpRequest();
 		xhr.open('GET', url, false);
@@ -200,6 +202,7 @@
 
 
 	function makeConceptsRequest(){
+		//#####################REPLACE localhost with server IP###########################
 		url = 'http://localhost:5000/getconcepts';
 		var xhr = createCORSRequest('GET', url);
 		xhr.onload = function() {
