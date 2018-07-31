@@ -106,6 +106,7 @@
 	function click_handler(ele){
 		var concept = ele.innerHTML;
 		$("#myModal").modal('hide');
+		makeYoutubeRequest();
 		init();
 		//join();
 		animate();
@@ -181,7 +182,7 @@
 	}
 
 	function makeYoutubeRequest(noob){
-		url = 'http://52.200.214.107:5000/image?concept='+noob.toString().substring(23,noob.length);
+		url = 'http://localhost:5000/getlinks?concept='+noob;
 		var xhr = new XMLHttpRequest();
 		xhr.open('GET', url, false);
 		xhr.onload = function() {
@@ -210,14 +211,14 @@
 		
 	function init2(strResp){
 		for (var key in jsonResp) {
-			if (jsonResp.hasOwnProperty(key) && jsonResp[key][strResp] != undefined){
-				alert(jsonResp[key][strResp][0].toString().split(",")[0].split(":")[1].replace('"','').replace('"',''));
+			//if (jsonResp.hasOwnProperty(key) && jsonResp[key][strResp] != undefined){
+				//alert(jsonResp[key][strResp][0].toString().split(",")[0].split(":")[1].replace('"','').replace('"',''));
 
-				link1=jsonResp[key].strResp.id1;
-				link2=jsonResp[key].strResp.id2;
-				link3=jsonResp[key].strResp.id3;
-				link4=jsonResp[key].strResp.id4;
-			}
+				link1=jsonResp[key][0];
+				link2=jsonResp[key][1];
+				link3=jsonResp[key][2];
+				link4=jsonResp[key][3];
+			//}
 		}
 	}
 
