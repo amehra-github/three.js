@@ -140,33 +140,34 @@
 			};
 			xhr.send(canvas.toDataURL());
 			document.body.removeEventListener("click", init_boss);
+			$("#myModal").modal();
+			makeConceptsRequest();
 			gate = 0;
 		}
 	}
 		
 	
 	function parser(strResp){
-				jsonResp = JSON.parse(strResp);
-				var tot = Object.keys(jsonResp).length
-				var cats = document.getElementsByClassName("category");
-				var ctr = 0;
-				outer:
-				for (var key in jsonResp) {
-				  if (jsonResp.hasOwnProperty(key)){
-					
-					var jsonjr = jsonResp[key]
-					for(var k in jsonjr){
-						//alert(k);
-						//if(jsonResp.hasOwnProperty(k)){
-							cats[ctr].innerHTML=k;
-							ctr=ctr+1;
-							if(ctr>=tot){break outer;}
-							if(ctr>=10 ){break outer;}
-						//}
-					}
-        }
-       }
-    }
+		jsonResp = JSON.parse(strResp);
+		var tot = Object.keys(jsonResp).length
+		var cats = document.getElementsByClassName("category");
+		var ctr = 0;
+		outer:
+		for (var key in jsonResp) {
+			if (jsonResp.hasOwnProperty(key)){
+				var jsonjr = jsonResp[key]
+				for(var k in jsonjr){
+					//alert(k);
+					//if(jsonResp.hasOwnProperty(k)){
+						cats[ctr].innerHTML=k;
+						ctr=ctr+1;
+						if(ctr>=tot){break outer;}
+						if(ctr>=10 ){break outer;}
+					//}
+				}
+       			}
+       		}
+    	}
 
 	function createCORSRequest(method, url) {
 		var xhr = new XMLHttpRequest();
@@ -197,8 +198,8 @@
 	}
 
 
-	function makeImgRequest(){
-		url = 'http://52.200.214.107:5000';
+	function makeConceptsRequest(){
+		url = 'http://localhost:5000/getconcepts';
 		var xhr = createCORSRequest('GET', url);
 		xhr.onload = function() {
 			var text = xhr.responseText;
